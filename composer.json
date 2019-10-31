@@ -1,0 +1,40 @@
+{
+  "name": "deerdama/console-zoo",
+  "version": "v1",
+  "description": "package to easily add styles and icons into console outputs",
+  "source": {
+    "type": "git",
+    "url": "https://github.com/Deerdama/console-zoo.git",
+    "reference": "a153363e0e343ffdde28731b33a604214642c515"
+  },
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Deerdama\\ConsoleZoo\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Deerdama\\ConsoleZoo\\ConsoleZooServiceProvider"
+      ]
+    }
+  },
+  "authors": [
+    {
+      "name": "Kristyna D."
+    }
+  ],
+  "keywords": [
+    "console",
+    "icons",
+    "colors",
+    "command",
+    "output",
+    "laravel",
+    "symfony",
+    "artisan"
+  ]
+}
