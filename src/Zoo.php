@@ -52,9 +52,8 @@ class Zoo
     const DARK_ORANGE_COLOR = [230, 81, 0];
     const DARK_BROWN_COLOR = [64, 45, 38];
 
-    const LIGHT_GRAY_COLOR = 250;
-    const LIGHT_GREY_COLOR = 250;
-
+//    const LIGHT_GRAY_COLOR = 250;
+//    const LIGHT_GREY_COLOR = 250;
 //    const LIGHT_TEAL_COLOR = [0, 81, 72];
 //    const LIGHT_RED_COLOR = [122, 0, 0];
 //    const LIGHT_YELLOW_COLOR = [160, 160, 0];
@@ -67,9 +66,12 @@ class Zoo
 //    const LIGHT_ORANGE_COLOR = [230, 81, 0];
 //    const LIGHT_BROWN_COLOR = [64, 45, 38];
 
+    /** icon categories available **/
+    const CATEGORIES = ['animals', 'nature', 'emoticons', 'food', 'transport', 'others'];
+
     /** icons **/
     const TURTLE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA2"];
-    const SQUIRREL = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"];
+    const SQUIRREL = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F "];
     const MONKEY = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x92"];
     const MONKEY_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xB5"];
     const GORILLA = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\xA6\x8D"];
@@ -429,7 +431,7 @@ class Zoo
     const REGISTERED_SIGN = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xC2\xAE"];
     const DOUBLE_EXCLAMATION_MARK = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x80\xBC"];
     const EXCLAMATION_QUESTION_MARK = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x81\x89"];
-    const INFORMATION_SOURCE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x84\xB9"];
+    const INFO = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x84\xB9"];
     const LEFT_RIGHT_ARROW = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x86\x94"];
     const UP_DOWN_ARROW = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x86\x95"];
     const NORTH_WEST_ARROW = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x86\x96"];
@@ -460,14 +462,10 @@ class Zoo
     const BLACK_DOWN_POINTING_DOUBLE_TRIANGLE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x8F\xAC"];
     const ALARM_CLOCK = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x8F\xB0"];
     const HOURGLASS_WITH_FLOWING_SAND = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x8F\xB3"];
-    const BLACK_SMALL_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x96\xAA"];
-    const WHITE_SMALL_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x96\xAB"];
     const BLACK_RIGHT_POINTING_TRIANGLE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x96\xB6"];
     const BLACK_LEFT_POINTING_TRIANGLE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\x80"];
-    const WHITE_MEDIUM_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBB"];
-    const BLACK_MEDIUM_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBC"];
-    const WHITE_MEDIUM_SMALL_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBD"];
-    const BLACK_MEDIUM_SMALL_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBE"];
+    const WHITE_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBB"];
+    const BLACK_SQUARE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x97\xBC"];
     const BLACK_SUN_WITH_RAYS = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x98\x80"];
     const CLOUD = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x98\x81"];
     const BLACK_TELEPHONE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xE2\x98\x8E"];
@@ -895,4 +893,56 @@ class Zoo
     const BELL_WITH_CANCELLATION_STROKE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\x95"];
     const MICROSCOPE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\xAC"];
     const TELESCOPE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\xAD"];
+
+    public static function infoDefaults($param = []): array
+    {
+        $default = [
+            'icons' => self::TURTLE['utf8'],
+            'color' => self::BLUE_COLOR,
+            'bold',
+            'italic'
+        ];
+
+        $parameters = array_merge($default, $param);
+
+        return $parameters;
+    }
+
+    public static function successDefaults($param = []): array
+    {
+        $default = [
+            'icons' => self::SQUIRREL['utf8'],
+            'color' => self::GREEN_COLOR,
+            'italic'
+        ];
+
+        $parameters = array_merge($default, $param);
+
+        return $parameters;
+    }
+
+    public static function warningDefaults($param = []): array
+    {
+        $default = [
+            'icons' => self::PIG['utf8'],
+            'color' => self::ORANGE_COLOR,
+        ];
+
+        $parameters = array_merge($default, $param);
+
+        return $parameters;
+    }
+
+    public static function errorDefaults($param = []): array
+    {
+        $default = [
+            'icons' => self::WEARY_CAT_FACE['utf8'],
+            'color' => self::RED_COLOR,
+            'bold'
+        ];
+
+        $parameters = array_merge($default, $param);
+
+        return $parameters;
+    }
 }
