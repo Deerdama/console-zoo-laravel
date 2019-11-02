@@ -111,7 +111,7 @@ class ShowOptions extends Command
     {
         if ($this->show !== 'everything') {
             $category = $this->choice('Show only specific icons category?', [
-                'SHOW ALL', 'animals', 'nature', 'emoticons', 'food', 'transport', 'dingbats', 'others'
+                'SHOW ALL', 'animals', 'nature', 'emoticons', 'food', 'transport', 'others'
             ], 0);
         } else {
             $category = 'SHOW ALL';

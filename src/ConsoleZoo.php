@@ -24,27 +24,7 @@ trait ConsoleZoo
     {
         $this->defaultIcons = $param['icons'] ?? [];
         unset($param['icons']);
-        $this->zooDefaults = $this->prepareParameters($param, false);
-    }
-
-    /**
-     * form the parameters and output message
-     *
-     * @param string $message
-     * @param array $icons
-     * @param array $param
-     */
-    public function zooOutput($message = "", $icons = [], $param = [])
-    {
-        if (!$icons && $this->defaultIcons) {
-            $icons = $this->defaultIcons;
-        }
-
-        $ansi = $this->prepareSequence($param);
-        $icons = $this->prepareIcons($icons);
-        $message = $this->prepareMessage($message);
-
-        $this->output->writeln(" " . $icons . $ansi . $message);
+        $this->zooDefaults = $this->prepareParameters($param, true);
     }
 
     /**
@@ -60,11 +40,31 @@ trait ConsoleZoo
     }
 
     /**
+     * form the parameters and output message
+     *
+     * @param string $message
+     * @param array $icons
+     * @param array $param
+     */
+    public function zooOutput($message = "", $icons = [], $param = [], $ignoreDefault = false)
+    {
+        if (!$icons && $this->defaultIcons) {
+            $icons = $this->defaultIcons;
+        }
+
+        $ansi = $this->prepareSequence($param, $ignoreDefault);
+        $icons = $this->prepareIcons($icons);
+        $message = $this->prepareMessage($message);
+
+        $this->output->writeln(" " . $icons . $ansi . $message);
+    }
+
+    /**
      * @param $parameters
-     * @param bool $compare
+     * @param bool $ignoreDefaults
      * @return array
      */
-    private function prepareParameters($parameters, $compare = true)
+    private function prepareParameters($parameters, $ignoreDefaults = false)
     {
         $this->getConstants();
         $currentDefaults = $this->zooDefaults;
@@ -86,7 +86,7 @@ trait ConsoleZoo
 
         $result = $this->getColors($newParam);
 
-        if ($compare !== false) {
+        if ($ignoreDefaults !== true) {
             $result = array_merge($currentDefaults, $result);
         }
 
@@ -160,13 +160,13 @@ trait ConsoleZoo
      * @param array $param
      * @return string
      */
-    private function prepareSequence($param = []): string
+    private function prepareSequence($param = [], $ignoreDefault = false): string
     {
         if (!count($param) && !count($this->zooDefaults)) {
             return "";
         }
 
-        $sequenceParam = $this->prepareParameters($param);
+        $sequenceParam = $this->prepareParameters($param, $ignoreDefault);
         $ansi = "\e[" . implode(';', $sequenceParam);
         $ansi = rtrim($ansi, ';') . 'm';
 
@@ -191,7 +191,7 @@ trait ConsoleZoo
             $result[] = $this->getIconCode($icons);
         }
 
-        $text = implode(' ', $result) . '  ';
+        $text = implode(' ', $result) . ' ';
 
         return $text;
     }
@@ -226,22 +226,92 @@ trait ConsoleZoo
         return $result;
     }
 
+    /**
+     * @param string $message
+     * @param array $param
+     */
     public function zooInfo($message = "", $param = [])
     {
-        $icons = $param['icons'] ?? [];
-        unset($param['icons']);
+        $parameters = Zoo::infoDefaults($param);
+        $icons = $parameters['icons'];
+        $message = isset($param['icons']) || !is_string($icons) ? $message : $message . "\e[0m " . $icons;
+        unset($parameters['icons']);
 
-        $param['color'] = 'blue';
-        $this->zooOutput($message, $icons, $param);
+        $this->zooOutput($message, $icons, $parameters, true);
     }
 
+    /**
+     * @param string $message
+     * @param array $param
+     */
     public function zooSuccess($message = "", $param = [])
     {
-        $icons = $param['icons'] ?? [];
-        unset($param['icons']);
-        $param['color'] = 'green';
+        $parameters = Zoo::successDefaults($param);
+        $icons = $parameters['icons'];
+        $message = isset($param['icons']) || !is_string($icons) ? $message : $message . "\e[0m " . $icons;
+        unset($parameters['icons']);
 
-        $this->zooOutput($message, $icons, $param);
+        $this->zooOutput($message, $icons, $parameters, true);
+    }
+
+    /**
+     * @param string $message
+     * @param array $param
+     */
+    public function zooWarning($message = "", $param = [])
+    {
+        $parameters = Zoo::warningDefaults($param);
+        $icons = $parameters['icons'];
+        $message = isset($param['icons']) || !is_string($icons) ? $message : $message . "\e[0m " . $icons;
+        unset($parameters['icons']);
+
+        $this->zooOutput($message, $icons, $parameters, true);
+    }
+
+    /**
+     * @param string $message
+     * @param array $param
+     */
+    public function zooError($message = "", $param = [])
+    {
+        $parameters = Zoo::errorDefaults($param);
+        $icons = $parameters['icons'];
+        $message = isset($param['icons']) || !is_string($icons) ? $message : $message . "\e[0m " . $icons;
+        unset($parameters['icons']);
+
+        $this->zooOutput($message, $icons, $parameters, true);
+    }
+
+    /**
+     * output with random icon
+     *
+     * @param string $message
+     * @param array $param
+     */
+    public function surprise($message = "", $param = [])
+    {
+        $this->getConstants();
+        $icon = null;
+
+        if (!isset($param['category']) || !in_array($param['category'], Zoo::CATEGORIES)) {
+            $param['category'] = null;
+        }
+
+        while (!$icon) {
+            $rand = $this->constants[array_rand($this->constants)];
+
+            if (isset($rand['type']) && $rand['type'] === 'icon'
+                && (!$param['category'] || $param['category'] === $rand['category'])) {
+
+                $icon = $rand['utf8'];
+            }
+        }
+
+        unset($param['category']);
+        unset($param['icons']);
+        $message = $message . "\e[0m " . $icon;
+
+        $this->zooOutput($message, $icon, $param);
     }
 }
 
