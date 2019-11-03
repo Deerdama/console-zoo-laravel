@@ -54,7 +54,7 @@ trait ConsoleZoo
 
         $ansi = $this->prepareSequence($param, $ignoreDefault);
         $icons = $this->prepareIcons($icons);
-        $message = $this->prepareMessage($message);
+        $message = $this->prepareMessage($message, $ansi);
 
         $this->output->writeln(" " . $icons . $ansi . $message);
     }
@@ -167,6 +167,11 @@ trait ConsoleZoo
         }
 
         $sequenceParam = $this->prepareParameters($param, $ignoreDefault);
+
+        if (!count($sequenceParam)) {
+            return "";
+        }
+
         $ansi = "\e[" . implode(';', $sequenceParam);
         $ansi = rtrim($ansi, ';') . 'm';
 
@@ -219,9 +224,67 @@ trait ConsoleZoo
      * @todo add option and process inline parameters
      *
      */
-    private function prepareMessage($message)
+    private function prepareMessage($message, $mainSequence = "")
     {
+        preg_match_all('/<zoo.*<\/zoo>/U', $message, $matches);
+
+        if (count($matches)) {
+            foreach ($matches[0] as $match) {
+                $parsed = $this->parseInlineParam($match, $mainSequence);
+                $message = str_replace($match, $parsed, $message);
+            }
+        }
+
+
         $result = $message . Zoo::RESET;
+
+        return $result;
+    }
+
+    /**
+     * parse one inline element
+     *
+     * @param string $inline
+     * @return string
+     */
+    private function parseInlineParam($inline, $origSequence)
+    {
+        preg_match('/(?<=>).*(?=<\/zoo>)/U', $inline, $content);
+
+        if (!$content) {
+            return "";
+        }
+
+        preg_match('/(?<=color=").*(?=")/U', $inline, $color);
+        preg_match('/(?<=background=").*(?=")/U', $inline, $background);
+
+        if ($color) {
+            preg_match('/(?<=\[).*(?=])/U', $color[0], $colorArr);
+            $param['color'] = $colorArr ? explode(',', str_replace(' ', '', $colorArr[0])) : $color[0];
+            $inline = preg_replace('/color=".*"/', '', $inline);
+        }
+
+        if ($background) {
+            preg_match('/(?<=\[).*(?=])/U', $background[0], $backgroundArr);
+            $param['background'] = $backgroundArr ? explode(',', str_replace(' ', '', $backgroundArr[0])) : $background[0];
+            $inline = preg_replace('/background=".*"/U', '', $inline);
+        }
+
+        preg_match('/(?<=<zoo ).*(?=>)/U', $inline, $others);
+
+        if ($others) {
+            $others = explode(' ', $others[0]);
+
+            foreach ($others as $other) {
+                if (!$other) {
+                    continue; //don't include extra white spaces
+                }
+                $param[] = $other;
+            }
+        }
+
+        $sequence = $this->prepareSequence($param, true);
+        $result = $sequence . $content[0] . Zoo::RESET . $origSequence;
 
         return $result;
     }
