@@ -17,8 +17,7 @@ Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 
 To see all the available icons/colors and to check how they'll look in your console you can run the artisan command `php artisan zoo:available-options`
 
-Keep in mind that the icons/colors might not look exactly the same as the screenshots, this depends on the console used and can't be controlled by the package itself.
-
+Keep in mind that the icons/colors might not look exactly the same as the screenshots, and some might not even work for you, this depends on the console used and can't be controlled by the package itself.
 
 --------------------
 <br>
@@ -32,7 +31,7 @@ Keep in mind that the icons/colors might not look exactly the same as the screen
 <br>
 
 > Older laravel versions: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
->1. Add the service provider into your `config/app.php` providers 
+>1. Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
 >2. `php artisan vendor:publish`
 
 -------------------
@@ -92,7 +91,7 @@ To overwrite default style parameters that don't have a value, you can just add 
     </p>
 
 
-* [](#sss) **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
+* **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
     * The icons will be random, but they can be limited to a certain `category`.
     * Available categories: animals, nature, emoticons, food, transport, others
     * All other parameters are allowed, default parameters will be used if none are passed
@@ -113,7 +112,7 @@ All the parameters are optional.
 
 
 | Name | Description | Type |
-| --- | --- | --- :|
+| --- | --- | --- |
 | color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
 | background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
 | icons  [**](#Using-Icons) | icon/s to display | string &#124; array |
@@ -126,7 +125,7 @@ All the parameters are optional.
 | overline | add overline to text |
 | blink | blink outputted text |
 | swap | swap the text and background colors |
-| category [**](#) | this is for [the random icon](#sss) only | string |
+| category | this is for the random icon only | string |
 
 --------------------
 <br>
