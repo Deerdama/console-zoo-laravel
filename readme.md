@@ -4,8 +4,8 @@ Laravel package to add some styling and icons to console outputs.
 Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 
 * [Installation](#Installation)
-* [Basic Usage](#Basic-Usage)
 * [Available Parameters](#Available-Parameters)
+* [Basic Usage](#Basic-Usage)
 * [Colors](#Changing-Colors)
 * [Icons](#Using-Icons)
 * [Inline Use](#Inline-Usage)
@@ -29,11 +29,35 @@ If you want to know more about the behind the scenes reason, and about the limit
 
 <br>
 
-:exclamation: Older laravel versions only: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
+:grey_exclamation: Extra steps for older Laravel versions: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
 * Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
 * `php artisan vendor:publish`
 
 -------------------
+<br>
+
+
+## Available Parameters
+
+All parameters are optional.
+
+| Name | Description | Type |
+| --- | --- | --- |
+| color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
+| background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
+| icons  [**](#Using-Icons) | icon/s to display | string &#124; array |
+| bold | increase text intensity |
+| faint | decrease text intensity |
+| italic | apply italic style to text 
+| underline | underline text |
+| underline_double | double underline text |
+| crossed | cross out the text |
+| overline | add overline to text |
+| blink | blink outputted text |
+| swap | swap the text and background colors |
+| category | this is for the random icon only | string |
+
+--------------------
 <br>
 
 
@@ -49,7 +73,10 @@ class TestZoo extends Command
 }
 ```
 
-* Main flexible output method to use `$this->zoo($messageString, $paramArr)`, eg:
+* You can pass the message and the parameters too all output methods. The second argument`$parameters` has to be an array, but it's always optional, you can skip it completely if you want to.
+Check the [Available parameters](#available-parameters) section for more details.
+
+* Main flexible output method to use `$this->zoo($messageString, $parameters)`, eg:
 ```php
     $this->zoo("Let's take it slow...", [
         'color' => 'blue',
@@ -65,6 +92,7 @@ class TestZoo extends Command
 </p>
 
 <br>
+
 
 * Default values: you can setup the default style at the beginning of your command without having to pass the parameters with every output. 
 Passing a parameter later on in a specific output **will overwrite** the default for that specific output. Example:
@@ -101,34 +129,11 @@ To overwrite default style parameters that don't have a value, you can just add 
             'category' => 'animals'
         ]);
 ```       
+
+* Check the [Inline usage](#inline-usage) section for details about how to apply multiple styles within one message and add icons anywhere
+
 ------------------
 <br>
-
-
-## Available Parameters
-
-All the parameters are optional.
-
-
-| Name | Description | Type |
-| --- | --- | --- |
-| color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
-| background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
-| icons  [**](#Using-Icons) | icon/s to display | string &#124; array |
-| bold | increase text intensity |
-| faint | decrease text intensity |
-| italic | apply italic style to text 
-| underline | underline text |
-| underline_double | double underline text |
-| crossed | cross out the text |
-| overline | add overline to text |
-| blink | blink outputted text |
-| swap | swap the text and background colors |
-| category | this is for the random icon only | string |
-
---------------------
-<br>
-
 
 ## Changing Colors
 
@@ -140,6 +145,8 @@ The colors can be passed in multiple ways:
 2. **array** - Use array to pass a color as rgb: `['color' => [255, 0, 0], 'background' => [0, 0, 255]]`
 3. **integer** - You can pass the [ANSI color codes](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors) directly as int: `['color' => 1, 'background' => 4]`
 4. **mix** - If you want to take advantage of your IDE then you can always use the defined constants in *Zoo.php* directly `['color' => Zoo::RED_COLOR, 'background' => Zoo::BLUE_COLOR]`
+
+* Check the [Inline usage](#inline-usage) section for details about how to change colors only to some part of the text
 
 [Use the artisan command to preview the predefined colors...](#Display-Options)
 
@@ -166,7 +173,7 @@ The colors can be passed in multiple ways:
 
 * As with the colors, you can use the `Zoo` class constants directly eg: `['icons' => Zoo::SQUIRREL]`
 * If you want to use an icon that is not available, you can always pass the raw `utf-8` code of whatever icon you need, eg `['icons' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"]`  <sub><sup>(Still a squirrel)</sup></sub>
-* Check the [Inline usage](#Inline-usage) section for details about adding icons anywhere inside the text
+* Check the [Inline usage](#inline-usage) section for details about adding icons anywhere inside the text
 
 
 
@@ -192,7 +199,7 @@ The colors can be passed in multiple ways:
 ```
 <p>
   <img src="https://images2.imgbox.com/c8/3a/reYkuz1S_o.png" 
-  width="550" alt="Result">
+  width="575" alt="Result">
 </p>
 
 * **Inline Icons**: To add icons inside the text you can use the `<icon>{icon}}</icon>` tag.
@@ -209,7 +216,7 @@ The colors can be passed in multiple ways:
 
 <p>
   <img src="https://images2.imgbox.com/39/c5/bDzNwrmA_o.png" 
-  width="410" alt="Result">
+  width="420" alt="Result">
 </p>
     
 
