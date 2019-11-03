@@ -129,8 +129,8 @@ class Zoo
     const CHICKEN = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x94"];
     const ROOSTER = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x93"];
     const HATCHING_CHICK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA3"];
-    const BABY_CHICK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA4"];
-    const FRONT_FACING_BABY_CHICK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA5"];
+    const SIDE_CHICK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA4"];
+    const BABY_CHICK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA5"];
     const BIRD = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA6"];
     const PENGUIN = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xA7"];
     const DOVE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x95\x8A"];
@@ -242,7 +242,7 @@ class Zoo
     const GRINNING_FACE = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x80"];
     const SMILING_FACE_WITH_HALO = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x87"];
     const SMILING_FACE_WITH_HORNS = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x88"];
-    const SMILING_FACE_WITH_SUNGLASSES = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x8E"];
+    const FACE_WITH_SUNGLASSES = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x8E"];
     const NEUTRAL_FACE = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x90"];
     const EXPRESSIONLESS_FACE = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x91"];
     const CONFUSED_FACE = ['type' => 'icon', 'category' => 'emoticons', 'utf8' => "\xF0\x9F\x98\x95"];

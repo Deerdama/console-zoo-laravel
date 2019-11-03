@@ -3,7 +3,6 @@ Console Zoo
 Laravel package to add some styling and icons to console outputs. 
 Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 
-
 * [Installation](#Installation)
 * [Basic Usage](#Basic-Usage)
 * [Available Parameters](#Available-Parameters)
@@ -13,26 +12,26 @@ Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 
 <br>
 
-#### Display Options
+#### Display All Options
 
 To see all the available icons/colors and to check how they'll look in your console you can run the artisan command `php artisan zoo:available-options`
 
-Keep in mind that the icons/colors might not look exactly the same as the screenshots, and some might not even work for you, this depends on the console used and can't be controlled by the package itself.
+:exclamation: Keep in mind that the icons/colors might not look exactly the same as the screenshots, and some might not even work for you, this depends on the console used (plus some other circumstances) and can't be controlled by the package itself.
+If you want to know more about the behind the scenes reason, and about the limitations, then you can find some info on [this wikipedia page](https://en.wikipedia.org/wiki/ANSI_escape_code)... or just google it
+
 
 --------------------
 <br>
 
 ## Installation
-
-
-
+ 
 `composer.....`
 
 <br>
 
-> Older laravel versions: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
->1. Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
->2. `php artisan vendor:publish`
+:exclamation: Older laravel versions only: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
+* Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
+* `php artisan vendor:publish`
 
 -------------------
 <br>
@@ -167,6 +166,7 @@ The colors can be passed in multiple ways:
 
 * As with the colors, you can use the `Zoo` class constants directly eg: `['icons' => Zoo::SQUIRREL]`
 * If you want to use an icon that is not available, you can always pass the raw `utf-8` code of whatever icon you need, eg `['icons' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"]`  <sub><sup>(Still a squirrel)</sup></sub>
+* Check the [Inline usage](#Inline-usage) section for details about adding icons anywhere inside the text
 
 
 
@@ -179,5 +179,39 @@ The colors can be passed in multiple ways:
 
 ### Inline usage
 
-_in progress..._
+* **Inline Style**:  To modify just just part of the text you can pass inline attributes within the `<zoo {PARAMETERS}></zoo>` tag
+    * Parameters requiring a value (color/background) must have the value within double quotes
+    * Other parameters should be unquoted and separated by a space 
+    
+ ```php
+    $this->zoo('Main style <zoo color="dark magenta" italic>inline style</zoo>, main again <zoo swap> 2nd inline </zoo>, the end', [
+        'icons' => ['mouse'],
+        'color' => 'blue',
+        'bold'
+    ]);
+```
+<p>
+  <img src="https://images2.imgbox.com/c8/3a/reYkuz1S_o.png" 
+  width="550" alt="Result">
+</p>
+
+* **Inline Icons**: To add icons inside the text you can use the `<icon>{icon}}</icon>` tag.
+    * Each tag can contain ONLY ONE icon
+    * The message can contain multiple icon tags
+    
+```php
+    $this->zoo(" I'm actually a fluffy <icon>unicorn</icon>, really!!! <icon>face_with_sunglasses</icon>", [
+        'color' => 'purple',
+        'icons' => ['horse'],
+        'bold'
+    ]);
+```
+
+<p>
+  <img src="https://images2.imgbox.com/39/c5/bDzNwrmA_o.png" 
+  width="410" alt="Result">
+</p>
+    
+
+
 
