@@ -896,7 +896,7 @@ class Zoo
 
     public static function infoDefaults($param = []): array
     {
-        $default = config('zoo.defaults_info');
+        $default = self::checkDefaultIcon(config('zoo.defaults_info'));
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -904,7 +904,7 @@ class Zoo
 
     public static function successDefaults($param = []): array
     {
-        $default = config('zoo.defaults_success');
+        $default = self::checkDefaultIcon(config('zoo.defaults_success'));
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -912,7 +912,7 @@ class Zoo
 
     public static function warningDefaults($param = []): array
     {
-        $default = config('zoo.defaults_warning');
+        $default = self::checkDefaultIcon(config('zoo.defaults_warning'));
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -920,9 +920,24 @@ class Zoo
 
     public static function errorDefaults($param = []): array
     {
-        $default = config('zoo.defaults_error');
+        $default = self::checkDefaultIcon(config('zoo.defaults_error'));
         $parameters = array_merge($default, $param);
 
         return $parameters;
+    }
+
+    /**
+     * prevent error in case the user uses the whole icon array instead of utf8 only
+     *
+     * @param array $param
+     * @return array
+     */
+    private static function checkDefaultIcon($param)
+    {
+        if (is_array($param['icons']) && isset($param['icons']['utf8'])) {
+            $param['icons'] = $param['icons']['utf8'];
+        }
+
+        return $param;
     }
 }
