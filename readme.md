@@ -1,11 +1,12 @@
 Console Zoo
 ================
-Laravel package to add some styling and icons to console outputs. 
+Laravel package to easily add some styling and icons to console outputs. 
 Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 
 * [Installation](#Installation)
 * [Available Parameters](#Available-Parameters)
 * [Basic Usage](#Basic-Usage)
+* [Defaults and Config](#Defaults-And-Config)
 * [Colors](#Changing-Colors)
 * [Icons](#Using-Icons)
 * [Inline Use](#Inline-Usage)
@@ -29,9 +30,15 @@ If you want to know more about the behind the scenes reason, and about the limit
 
 <br>
 
-:grey_exclamation: Extra steps for older Laravel versions: If you want to take advantage of the artisan command to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
-* Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
-* `php artisan vendor:publish`
+:exclamation: If you'll want to change some default parameters then you'll need to publish the config file:
+
+`php artisan vendor:publish --provider=Deerdama\\ConsoleZoo\\ConsoleZooServiceProvider`
+
+<br>
+
+* Extra steps for older Laravel versions: To use the [artisan command](#Display-All-Options) to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
+
+    Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
 
 -------------------
 <br>
@@ -67,16 +74,16 @@ All parameters are optional.
 ```php
 class TestZoo extends Command
 {
-    use ConsoleZoo;
+    use \Deerdama\ConsoleZoo\ConsoleZoo;
 
     //etc.......
 }
 ```
 
-* You can pass the message and the parameters too all output methods. The second argument`$parameters` has to be an array, but it's always optional, you can skip it completely if you want to.
+* You can pass the message and the parameters to all output methods. The second argument`$parameters` has to be an array, but it's always optional, you can skip it completely if you want to.
 Check the [Available parameters](#available-parameters) section for more details.
 
-* Main flexible output method to use `$this->zoo($messageString, $parameters)`, eg:
+* **The main** flexible output method that you can use for any message is `$this->zoo($messageString, $parameters)`, eg:
 ```php
     $this->zoo("Let's take it slow...", [
         'color' => 'blue',
@@ -93,20 +100,26 @@ Check the [Available parameters](#available-parameters) section for more details
 
 <br>
 
+* **Other general methods** can be found in the [Defaults](#Defaults-And-Config) section. Plus the [Inline usage](#inline-usage) section contains details about how to apply multiple styles within one message and add icons anywhere
 
-* Default values: you can setup the default style at the beginning of your command without having to pass the parameters with every output. 
-Passing a parameter later on in a specific output **will overwrite** the default for that specific output. Example:
-
+* **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
+    * The icons will be always random, but they can be limited to a certain `category`.
+    * Available categories: _animals, nature, emoticons, food, transport, others_
+    * All other parameters are allowed, default parameters will be used if none are passed
+    * Text color will be random if none is set as default nor explicitly passed
+    
 ```php
-    $this->zooSetDefaults([
-        'color' => 'blue',
-        'bold'
+    $this->surprise("message", [
+        'category' => 'animals'
     ]);
-```
+```     
 
-To overwrite default style parameters that don't have a value, you can just add a `no_` in front of them. For example `underline` and `bold` can be cancelled with `no_underline`, `no_bold`
+------------------
+<br>
 
-* There are other typical output methods that already have a predefined format that can be overwritten by passing parameters.
+## Defaults And Config
+
+* There are some **default message types** with pre-defined formats, that can be changed or overwritten by passing parameters.
     * `$this->zooInfo($message, $optionalParam);`
     * `$this->zooSuccess($message, $optionalParam);`
     * `$this->zooWarning($message);`
@@ -116,33 +129,60 @@ To overwrite default style parameters that don't have a value, you can just add 
       <img src="https://images2.imgbox.com/fc/22/7vOT8EzZ_o.png" 
       width="250" alt="Result">
     </p>
-
-
-* **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
-    * The icons will be random, but they can be limited to a certain `category`.
-    * Available categories: animals, nature, emoticons, food, transport, others
-    * All other parameters are allowed, default parameters will be used if none are passed
     
-```php
-        $this->surprise("message", [
-            'color' => 'magenta',
-            'category' => 'animals'
-        ]);
-```       
+* **Configuring** the default messages: you can change the above default formats through the config file:
+    * The config file needs to be [published](#Installation)!
+    * You'll find the file in your main `config\zoo.php` 
+    * Then just change/add the parameters however you want
 
-* Check the [Inline usage](#inline-usage) section for details about how to apply multiple styles within one message and add icons anywhere
+
+* **One time** defaults: if you want to setup a default style for the current command, then you can setup the defaults through `$this->zooSetDefaults($parameters)` at the beginning of your command without having to pass the same parameters with every output.
+    * These defaults won't affect the pre-defined methods like `info`, `error` etc.., it will affect the main `$this->zoo()` and the `$this->surprise()` methods only!! (Won't affect the icon of the latter).
+    * Passing a parameter later on in a specific output **will overwrite** the default for that specific output. Example:
+
+```php
+    $this->zooSetDefaults([
+        'color' => 'blue',
+        'bold'
+    ]);
+
+    // And then..
+    $this->zoo("Meh, I'm just default..");
+
+```
+<p>
+  <img src="https://images2.imgbox.com/f7/53/qlwHB8WW_o.png" 
+  width="275" alt="Result">
+</p>
+   
+
+* Whatever parameter you explicitly pass later on will overwrite the default. To overwrite default parameters that don't have a value, you can just add a `no_` in front of them. For example `underline` and `bold` can be cancelled with `no_underline`, `no_bold`.
+
+```php
+    $this->zoo("I'm the chosen one!!", [
+        'icons' => 'pig_face',
+        'swap',
+        'no_bold'
+    ]);
+```
+<p>
+  <img src="https://images2.imgbox.com/5f/0f/IlhxEUrm_o.png" 
+  width="255" alt="Result">
+</p>
+
 
 ------------------
 <br>
-
+ 
 ## Changing Colors
+
 
 Text and background colors can be changed through the `color` and `background` parameters.
 
 The colors can be passed in multiple ways:
 
-1. **string** - name of the color: `['color' => 'red', 'background' => 'blue']`
-2. **array** - Use array to pass a color as rgb: `['color' => [255, 0, 0], 'background' => [0, 0, 255]]`
+1. **string** - name of the color: `['color' => 'red', 'background' => ' dark blue']`
+2. **array** - Use array to pass any color as rgb: `['color' => [255, 0, 0], 'background' => [0, 0, 255]]`
 3. **integer** - You can pass the [ANSI color codes](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors) directly as int: `['color' => 1, 'background' => 4]`
 4. **mix** - If you want to take advantage of your IDE then you can always use the defined constants in *Zoo.php* directly `['color' => Zoo::RED_COLOR, 'background' => Zoo::BLUE_COLOR]`
 
@@ -172,10 +212,8 @@ The colors can be passed in multiple ways:
 </p>
 
 * As with the colors, you can use the `Zoo` class constants directly eg: `['icons' => Zoo::SQUIRREL]`
-* If you want to use an icon that is not available, you can always pass the raw `utf-8` code of whatever icon you need, eg `['icons' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"]`  <sub><sup>(Still a squirrel)</sup></sub>
+* If you want to use an icon that is not available, you can always pass the raw `utf-8` code of whatever icon you need, eg `['icons' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"]`  <sub><sup>(Still a squirrel)</sup></sub>. The raw utf-8 icon **must be** inside **double quotes**
 * Check the [Inline usage](#inline-usage) section for details about adding icons anywhere inside the text
-
-
 
 
 [Use the artisan command to display all the available icons...](#Display-Options) (_Tip: You can filter by category if you choose the option to show "icons" only_)
@@ -187,11 +225,11 @@ The colors can be passed in multiple ways:
 ### Inline usage
 
 * **Inline Style**:  To modify just just part of the text you can pass inline attributes within the `<zoo {PARAMETERS}></zoo>` tag
-    * Parameters requiring a value (color/background) must have the value within double quotes
+    * Parameters requiring a value (color/background) **must have the value within quotes** (doesn't matter is single or double)
     * Other parameters should be unquoted and separated by a space 
     
  ```php
-    $this->zoo('Main style <zoo color="dark magenta" italic>inline style</zoo>, main again <zoo swap> 2nd inline </zoo>, the end', [
+    $this->zoo("Main style <zoo color='dark magenta' italic>inline style</zoo>, main again <zoo swap> 2nd inline </zoo>, the end", [
         'icons' => ['mouse'],
         'color' => 'blue',
         'bold'
@@ -216,7 +254,7 @@ The colors can be passed in multiple ways:
 
 <p>
   <img src="https://images2.imgbox.com/39/c5/bDzNwrmA_o.png" 
-  width="420" alt="Result">
+  width="425" alt="Result">
 </p>
     
 

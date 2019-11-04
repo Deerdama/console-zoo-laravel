@@ -7,7 +7,7 @@ use ReflectionClass;
 trait ConsoleZoo
 {
     /** @var array */
-    protected $zooDefaults = [];
+    protected $currentDefaults = [];
 
     /** @var array */
     protected $constants = [];
@@ -24,7 +24,7 @@ trait ConsoleZoo
     {
         $this->defaultIcons = $param['icons'] ?? [];
         unset($param['icons']);
-        $this->zooDefaults = $this->prepareParameters($param, true);
+        $this->currentDefaults = $this->prepareParameters($param, true);
     }
 
     /**
@@ -48,6 +48,8 @@ trait ConsoleZoo
      */
     public function zooOutput($message = "", $icons = [], $param = [], $ignoreDefault = false)
     {
+        $this->getConstants();
+
         if (!$icons && $this->defaultIcons) {
             $icons = $this->defaultIcons;
         }
@@ -67,7 +69,7 @@ trait ConsoleZoo
     private function prepareParameters($parameters, $ignoreDefaults = false)
     {
         $this->getConstants();
-        $currentDefaults = $this->zooDefaults;
+        $currentDefaults = $this->currentDefaults;
         $newParam = [];
 
         foreach ($parameters as $key => $value) {
@@ -147,7 +149,7 @@ trait ConsoleZoo
     {
         if (is_string($color)) {
             $color = str_replace(' ', '_', $color);
-            $color = strpos($color, '_color') ? $color : $color . '_color';
+            $color = strpos(strtoupper($color), 'COLOR_') === 0 ? $color : 'COLOR_' . $color;
             $color = isset($this->constants[strtoupper($color)]) ? $this->constants[strtoupper($color)] : null;
         }
 
@@ -162,7 +164,7 @@ trait ConsoleZoo
      */
     private function prepareSequence($param = [], $ignoreDefault = false): string
     {
-        if (!count($param) && !count($this->zooDefaults)) {
+        if (!count($param) && !count($this->currentDefaults)) {
             return "";
         }
 
@@ -248,19 +250,19 @@ trait ConsoleZoo
         if ($match) {
             $inline = $match[0];
             preg_match('/(?<=>).*(?=<\/zoo>)/U', $inline, $content);
-            preg_match('/(?<=color=").*(?=")/U', $inline, $color);
-            preg_match('/(?<=background=").*(?=")/U', $inline, $background);
+            preg_match('/(?<=color=[",\']).*(?=[",\'])/U', $inline, $color);
+            preg_match('/(?<=background=[",\']).*(?=[",\'])/U', $inline, $background);
 
             if ($color) {
                 preg_match('/(?<=\[).*(?=])/U', $color[0], $colorArr);
                 $param['color'] = $colorArr ? explode(',', str_replace(' ', '', $colorArr[0])) : $color[0];
-                $inline = preg_replace('/color=".*"/', '', $inline);
+                $inline = preg_replace('/color=[",\'].*[",\']/', '', $inline);
             }
 
             if ($background) {
                 preg_match('/(?<=\[).*(?=])/U', $background[0], $backgroundArr);
                 $param['background'] = $backgroundArr ? explode(',', str_replace(' ', '', $backgroundArr[0])) : $background[0];
-                $inline = preg_replace('/background=".*"/U', '', $inline);
+                $inline = preg_replace('/background=[",\'].*[",\']/U', '', $inline);
             }
 
             preg_match('/(?<=<zoo ).*(?=>)/U', $inline, $others);
@@ -364,7 +366,7 @@ trait ConsoleZoo
     }
 
     /**
-     * output with random icon
+     * output with random icon and color
      *
      * @param string $message
      * @param array $param
@@ -385,6 +387,16 @@ trait ConsoleZoo
                 && (!$param['category'] || $param['category'] === $rand['category'])) {
 
                 $icon = $rand['utf8'];
+            }
+        }
+
+        if (!isset($param['color']) && !isset($this->currentDefaults['color'])) {
+            while (!isset($param['color'])) {
+                $rand = array_rand($this->constants);
+
+                if (strpos($rand, 'COLOR_') === 0) {
+                    $param['color'] = $rand;
+                }
             }
         }
 
