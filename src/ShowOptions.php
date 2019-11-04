@@ -13,7 +13,7 @@ class ShowOptions extends Command
      *
      * @var string
      */
-    protected $signature = 'zoo:available-options';
+    protected $signature = 'zoo:options';
 
     /**
      * The console command description.
@@ -30,15 +30,6 @@ class ShowOptions extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->zooOptions = new ReflectionClass(Zoo::class);
-        $this->zooOptions = $this->zooOptions->getConstants();
-
-        $this->zooSetDefaults([
-            'background' => 'blue',
-            'bold',
-            'italic'
-        ]);
     }
 
     /**
@@ -48,6 +39,15 @@ class ShowOptions extends Command
      */
     public function handle()
     {
+        $this->zooOptions = new ReflectionClass(Zoo::class);
+        $this->zooOptions = $this->zooOptions->getConstants();
+
+        $this->zooSetDefaults([
+            'background' => 'blue',
+            'bold',
+            'italic'
+        ]);
+
         $this->show = $this->choice('Show me....', [
             'everything', 'available icons', 'available colors', //'other available options'
         ], 0);
@@ -74,7 +74,7 @@ class ShowOptions extends Command
 
         foreach ($this->zooOptions as $name => $color) {
 
-            if (is_string($color) || !strpos($name, '_COLOR')) {
+            if (is_string($color) || strpos($name, 'COLOR_') !== 0) {
                 continue;
             }
 
@@ -88,7 +88,8 @@ class ShowOptions extends Command
                 continue;
             }
 
-            $name = strtolower(preg_replace('/_COLOR$/', '', $name));
+            $name = strtolower(preg_replace("/^COLOR_/", '', $name));
+
             $text = "\e[1;" . $text . "m I'm a {$name} text";
             $background = "\e[1;" . $background . "m I'm a {$name} background";
 

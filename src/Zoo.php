@@ -22,49 +22,49 @@ class Zoo
     const CROSSED = 9;
 
     /** colors **/
-    const BLACK_COLOR = [0, 0, 0];
-    const RED_COLOR = 196;
-    const GREEN_COLOR = [0, 205, 0];
-    const YELLOW_COLOR = 226;
-    const BLUE_COLOR = [0, 115, 229];
-    const MAGENTA_COLOR = [255, 0, 255];
-    const CYAN_COLOR = [0, 255, 255];
-    const WHITE_COLOR = [255, 255, 255];
-    const GREY_COLOR = 240;
-    const GRAY_COLOR = 240;
-    const PINK_COLOR = [232, 75, 146];
-    const PURPLE_COLOR = 129;
-    const ORANGE_COLOR = [255, 152, 0];
-    const BROWN_COLOR = [121, 85, 72];
-    const TEAL_COLOR = [0, 150, 136];
+    const COLOR_BLACK = [0, 0, 0];
+    const COLOR_RED = 196;
+    const COLOR_GREEN = [0, 205, 0];
+    const COLOR_YELLOW = 226;
+    const COLOR_BLUE = [0, 115, 229];
+    const COLOR_MAGENTA = [255, 0, 255];
+    const COLOR_CYAN = [0, 255, 255];
+    const COLOR_WHITE = [255, 255, 255];
+    const COLOR_GREY = 240;
+    const COLOR_GRAY = 240;
+    const COLOR_PINK = [232, 75, 146];
+    const COLOR_PURPLE = 129;
+    const COLOR_ORANGE = [255, 152, 0];
+    const COLOR_BROWN = [121, 85, 72];
+    const COLOR_TEAL = [0, 150, 136];
 
-    const DARK_TEAL_COLOR = [0, 81, 72];
-    const DARK_RED_COLOR = [122, 0, 0];
-    const DARK_YELLOW_COLOR = [160, 160, 0];
-    const DARK_GREEN_COLOR = [0, 89, 0];
-    const DARK_BLUE_COLOR = [0, 0, 178];
-    const DARK_MAGENTA_COLOR = [137, 0, 137];
-    const DARK_CYAN_COLOR = [0, 107, 107];
-    const DARK_GRAY_COLOR = 235;
-    const DARK_GREY_COLOR = 235;
-    const DARK_PINK_COLOR = [165, 20, 85];
-    const DARK_PURPLE_COLOR = [102, 0, 102];
-    const DARK_ORANGE_COLOR = [230, 81, 0];
-    const DARK_BROWN_COLOR = [64, 45, 38];
+    const COLOR_DARK_TEAL = [0, 81, 72];
+    const COLOR_DARK_RED = [122, 0, 0];
+    const COLOR_DARK_YELLOW = [160, 160, 0];
+    const COLOR_DARK_GREEN = [0, 89, 0];
+    const COLOR_DARK_BLUE = [0, 0, 178];
+    const COLOR_DARK_MAGENTA = [137, 0, 137];
+    const COLOR_DARK_CYAN = [0, 107, 107];
+    const COLOR_DARK_GRAY = 235;
+    const COLOR_DARK_GREY = 235;
+    const COLOR_DARK_PINK = [165, 20, 85];
+    const COLOR_DARK_PURPLE = [102, 0, 102];
+    const COLOR_DARK_ORANGE = [230, 81, 0];
+    const COLOR_DARK_BROWN = [64, 45, 38];
 
-//    const LIGHT_GRAY_COLOR = 250;
-//    const LIGHT_GREY_COLOR = 250;
-//    const LIGHT_TEAL_COLOR = [0, 81, 72];
-//    const LIGHT_RED_COLOR = [122, 0, 0];
-//    const LIGHT_YELLOW_COLOR = [160, 160, 0];
-//    const LIGHT_GREEN_COLOR = [0, 89, 0];
-//    const LIGHT_BLUE_COLOR = [0, 0, 178];
-//    const LIGHT_MAGENTA_COLOR = [137, 0, 137];
-//    const LIGHT_CYAN_COLOR = [0, 107, 107];
-//    const LIGHT_PINK_COLOR = [165, 20, 85];
-//    const LIGHT_PURPLE_COLOR = [102, 0, 102];
-//    const LIGHT_ORANGE_COLOR = [230, 81, 0];
-//    const LIGHT_BROWN_COLOR = [64, 45, 38];
+//    const COLOR_LIGHT_GRAY = 250;
+//    const COLOR_LIGHT_GREY = 250;
+//    const COLOR_LIGHT_TEAL = [0, 81, 72];
+//    const COLOR_LIGHT_RED = [122, 0, 0];
+//    const COLOR_LIGHT_YELLOW = [160, 160, 0];
+//    const COLOR_LIGHT_GREEN = [0, 89, 0];
+//    const COLOR_LIGHT_BLUE = [0, 0, 178];
+//    const COLOR_LIGHT_MAGENTA = [137, 0, 137];
+//    const COLOR_LIGHT_CYAN = [0, 107, 107];
+//    const COLOR_LIGHT_PINK = [165, 20, 85];
+//    const COLOR_LIGHT_PURPLE = [102, 0, 102];
+//    const COLOR_LIGHT_ORANGE = [230, 81, 0];
+//    const COLOR_LIGHT_BROWN = [64, 45, 38];
 
     /** icon categories available **/
     const CATEGORIES = ['animals', 'nature', 'emoticons', 'food', 'transport', 'others'];
@@ -896,13 +896,7 @@ class Zoo
 
     public static function infoDefaults($param = []): array
     {
-        $default = [
-            'icons' => self::TURTLE['utf8'],
-            'color' => self::BLUE_COLOR,
-            'bold',
-            'italic'
-        ];
-
+        $default = config('zoo.defaults_info');
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -910,12 +904,7 @@ class Zoo
 
     public static function successDefaults($param = []): array
     {
-        $default = [
-            'icons' => self::SQUIRREL['utf8'],
-            'color' => self::GREEN_COLOR,
-            'italic'
-        ];
-
+        $default = config('zoo.defaults_success');
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -923,11 +912,7 @@ class Zoo
 
     public static function warningDefaults($param = []): array
     {
-        $default = [
-            'icons' => self::PIG['utf8'],
-            'color' => self::ORANGE_COLOR,
-        ];
-
+        $default = config('zoo.defaults_warning');
         $parameters = array_merge($default, $param);
 
         return $parameters;
@@ -935,12 +920,7 @@ class Zoo
 
     public static function errorDefaults($param = []): array
     {
-        $default = [
-            'icons' => self::WEARY_CAT_FACE['utf8'],
-            'color' => self::RED_COLOR,
-            'bold'
-        ];
-
+        $default = config('zoo.defaults_error');
         $parameters = array_merge($default, $param);
 
         return $parameters;
