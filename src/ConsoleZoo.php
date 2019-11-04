@@ -7,7 +7,7 @@ use ReflectionClass;
 trait ConsoleZoo
 {
     /** @var array */
-    protected $zooDefaults = [];
+    protected $currentDefaults = [];
 
     /** @var array */
     protected $constants = [];
@@ -24,7 +24,7 @@ trait ConsoleZoo
     {
         $this->defaultIcons = $param['icons'] ?? [];
         unset($param['icons']);
-        $this->zooDefaults = $this->prepareParameters($param, true);
+        $this->currentDefaults = $this->prepareParameters($param, true);
     }
 
     /**
@@ -48,6 +48,8 @@ trait ConsoleZoo
      */
     public function zooOutput($message = "", $icons = [], $param = [], $ignoreDefault = false)
     {
+        $this->getConstants();
+
         if (!$icons && $this->defaultIcons) {
             $icons = $this->defaultIcons;
         }
@@ -67,7 +69,7 @@ trait ConsoleZoo
     private function prepareParameters($parameters, $ignoreDefaults = false)
     {
         $this->getConstants();
-        $currentDefaults = $this->zooDefaults;
+        $currentDefaults = $this->currentDefaults;
         $newParam = [];
 
         foreach ($parameters as $key => $value) {
@@ -147,7 +149,7 @@ trait ConsoleZoo
     {
         if (is_string($color)) {
             $color = str_replace(' ', '_', $color);
-            $color = strpos($color, '_color') ? $color : $color . '_color';
+            $color = strpos($color, 'color_') ? $color : 'color_' . $color;
             $color = isset($this->constants[strtoupper($color)]) ? $this->constants[strtoupper($color)] : null;
         }
 
@@ -162,7 +164,7 @@ trait ConsoleZoo
      */
     private function prepareSequence($param = [], $ignoreDefault = false): string
     {
-        if (!count($param) && !count($this->zooDefaults)) {
+        if (!count($param) && !count($this->currentDefaults)) {
             return "";
         }
 
