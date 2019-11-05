@@ -15,6 +15,7 @@ return [
     | All current parameters can be changed, and any other available param can be added
     |
     */
+
     'defaults_info' => [
         'icons' => Zoo::TURTLE,
         'color' => Zoo::COLOR_BLUE,

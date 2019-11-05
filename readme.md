@@ -26,7 +26,7 @@ If you want to know more about the behind the scenes reason, and about the limit
 
 ## Installation
  
-`composer.....`
+`composer require deerdama/console-zoo`
 
 <br>
 
@@ -36,10 +36,14 @@ If you want to know more about the behind the scenes reason, and about the limit
 
 <br>
 
-* Extra steps for older Laravel versions: To use the [artisan command](#Display-All-Options) to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
+:grey_exclamation: **Laravel versions**: I used this in few laravel versions from 5.1 up to 6.4 and everything worked normally on all of those..
 
-    Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
+* Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers, and only then run the vendor:publish
 
+* And in case someone wants to try this on **4.2**... the basic output methods `zoo()` and `surprise()` actually work, but forget about registering the service provider, using the preview command or using the default methods like `zooSuccess()` 
+
+
+  
 -------------------
 <br>
 
@@ -222,10 +226,10 @@ The colors can be passed in multiple ways:
 <br>
 
 
-### Inline usage
+## Inline usage
 
 * **Inline Style**:  To modify just just part of the text you can pass inline attributes within the `<zoo {PARAMETERS}></zoo>` tag
-    * Parameters requiring a value (color/background) **must have the value within quotes** (doesn't matter is single or double)
+    * Parameters requiring a value (color/background) **must have the value within quotes** (doesn't matter if single or double)
     * Other parameters should be unquoted and separated by a space 
     
  ```php
