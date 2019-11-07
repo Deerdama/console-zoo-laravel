@@ -23,34 +23,232 @@ class Zoo
 
     /** colors **/
     const COLOR_BLACK = [0, 0, 0];
-    const COLOR_RED = 196;
-    const COLOR_GREEN = [0, 205, 0];
-    const COLOR_YELLOW = 226;
-    const COLOR_BLUE = [0, 115, 229];
-    const COLOR_MAGENTA = [255, 0, 255];
-    const COLOR_CYAN = [0, 255, 255];
     const COLOR_WHITE = [255, 255, 255];
-    const COLOR_GREY = 240;
-    const COLOR_GRAY = 240;
-    const COLOR_PINK = [232, 75, 146];
-    const COLOR_PURPLE = 129;
-    const COLOR_ORANGE = [255, 152, 0];
-    const COLOR_BROWN = [121, 85, 72];
-    const COLOR_TEAL = [0, 150, 136];
 
-    const COLOR_DARK_TEAL = [0, 81, 72];
-    const COLOR_DARK_RED = [122, 0, 0];
-    const COLOR_DARK_YELLOW = [160, 160, 0];
-    const COLOR_DARK_GREEN = [0, 89, 0];
-    const COLOR_DARK_BLUE = [0, 0, 178];
-    const COLOR_DARK_MAGENTA = [137, 0, 137];
-    const COLOR_DARK_CYAN = [0, 107, 107];
-    const COLOR_DARK_GRAY = 235;
-    const COLOR_DARK_GREY = 235;
-    const COLOR_DARK_PINK = [165, 20, 85];
-    const COLOR_DARK_PURPLE = [102, 0, 102];
-    const COLOR_DARK_ORANGE = [230, 81, 0];
-    const COLOR_DARK_BROWN = [64, 45, 38];
+    const COLOR_RED = [227, 34, 20];
+    const COLOR_RED_LIGHT = [244, 67, 54];
+    const COLOR_RED_LIGHT_2 = [229, 115, 115];
+    const COLOR_RED_DARK = [178, 6, 6];
+    const COLOR_RED_DARK_2 = [111, 3, 3];
+    const COLOR_RED_BRIGHT = [255, 9, 9];
+
+    const COLOR_DIV = [33, 33, 33];
+
+    const COLOR_PINK = [233, 30, 99];
+    const COLOR_PINK_LIGHT = [236, 64, 122];
+    const COLOR_PINK_LIGHT_2 = [244, 143, 177];
+    const COLOR_PINK_DARK = [197, 17, 98];
+    const COLOR_PINK_DARK_2 = [122, 12, 71];
+    const COLOR_PINK_BRIGHT = [245, 0, 87];
+    const COLOR_MAGENTA = [255, 0, 255];
+
+    const COLOR_DIV_2 = [33, 33, 33];
+
+    const COLOR_PURPLE = [128, 0, 128];
+    const COLOR_PURPLE_LIGHT = [156, 39, 176];
+    const COLOR_PURPLE_LIGHT_2 = [171, 71, 188];
+    const COLOR_PURPLE_DARK = [106, 27, 154];
+    const COLOR_PURPLE_DARK_2 = [74, 20, 140];
+    const COLOR_PURPLE_BRIGHT = [170, 0, 255];
+
+    const COLOR_DIV_3 = [33, 33, 33];
+
+    const COLOR_DEEP_PURPLE = [94, 53, 177];
+    const COLOR_DEEP_PURPLE_LIGHT = [126, 87, 194];
+    const COLOR_DEEP_PURPLE_LIGHT_2 = [149, 117, 205];
+    const COLOR_DEEP_PURPLE_DARK = [69, 39, 160];
+    const COLOR_DEEP_PURPLE_DARK_2 = [45, 25, 97];
+    const COLOR_DEEP_PURPLE_BRIGHT = [101, 31, 255];
+
+    const COLOR_DIV_4 = [33, 33, 33];
+    const COLOR_INDIGO = [57, 73, 171];
+
+    const COLOR_INDIGO_LIGHT = [92, 107, 192];
+    const COLOR_INDIGO_LIGHT_2 = [121, 134, 203];
+    const COLOR_INDIGO_DARK = [40, 53, 147];
+    const COLOR_INDIGO_DARK_2 = [26, 35, 126];
+    const COLOR_INDIGO_BRIGHT = [48, 79, 254];
+
+    const COLOR_DIV_5 = [33, 33, 33];
+
+    const COLOR_BLUE_BASIC = [0, 0, 255];
+    const COLOR_BLUE = [0, 103, 206];
+    const COLOR_BLUE_LIGHT = [2, 136, 209];
+    const COLOR_BLUE_LIGHT_2 = [3, 169, 244];
+    const COLOR_BLUE_DARK = [1, 87, 155];
+    const COLOR_BLUE_DARK_2 = [13, 71, 161];
+    const COLOR_BLUE_BRIGHT = [16, 79, 255];
+    const COLOR_BLUE_BRIGHT_LIGHT = [0, 145, 234];
+//    const COLOR_BLUE = [33, 150, 243];
+//    const COLOR_BLUE = [0, 115, 229];
+//    const COLOR_BLUE_LIGHT_3 = [2, 119, 189];
+//    const COLOR_BLUE_LIGHT_1 = [3, 155, 229];
+//    const COLOR_BLUE_DARK = [18, 90, 172];
+
+
+    const COLOR_DIV_6 = [33, 33, 33];
+
+    const COLOR_CYAN_BASIC = [0, 255, 255];
+    const COLOR_CYAN = [0, 188, 212];
+    const COLOR_CYAN_LIGHT = [111, 217, 230];
+    const COLOR_CYAN_DARK = [0, 131, 143];
+    const COLOR_CYAN_DARK_2 = [0, 96, 100];
+    const COLOR_CYAN_BRIGHT = [0, 229, 255];
+//    const COLOR_CYAN_LIGHT = [50, 201, 220];
+
+    const COLOR_DIV_7 = [33, 33, 33];
+
+    const COLOR_TEAL = [0, 150, 136];
+    const COLOR_TEAL_LIGHT = [77, 182, 172];
+    const COLOR_TEAL_DARK = [0, 121, 107];
+    const COLOR_TEAL_BRIGHT = [29, 233, 182];
+//    const COLOR_TEAL_BRIGHT = [0, 191, 165];
+//    const COLOR_TEAL_LIGHT_1 = [38, 166, 154];
+//    const COLOR_TEAL_DARK = [0, 105, 92];
+//    const COLOR_TEAL_DARK_4 = [0, 77, 64];
+
+    const COLOR_DIV_8 = [33, 33, 33];
+
+//    const COLOR_GREEN = [0, 128, 0];
+    const COLOR_GREEN_BASIC = [0, 255, 0];
+    const COLOR_GREEN = [0, 155, 0];
+    const COLOR_GREEN_LIGHT = [76, 166, 76];
+//    const COLOR_GREEN_LIGHT_2 = [80, 210, 144];
+    const COLOR_GREEN_LIGHT_2 = [102, 185, 102];
+    const COLOR_GREEN_DARK = [0, 100, 32];
+    const COLOR_GREEN_DARK_2 = [0, 60, 0];
+    const COLOR_GREEN_BRIGHT = [22, 220, 34];
+//    const COLOR_GREEN_LIGHT_1 = [127,191,127];
+//    const COLOR_GREEN_BRIGHT = [0, 230, 127];
+
+    const COLOR_DIV_9 = [33, 33, 33];
+//    const COLOR_LIME_BRIGHT = [118, 255, 3];
+    const COLOR_LIME_BRIGHT = [174, 234, 0];
+    const COLOR_LIME_BRIGHT_3 = [198, 255, 0];
+
+    const COLOR_DIV_99 = [33, 33, 33];
+
+
+    const COLOR_LIME = [205, 220, 57];
+    const COLOR_LIME_LIGHT_3 = [230, 238, 156];
+    const COLOR_LIME_LIGHT_2 = [220, 231, 117];
+    const COLOR_LIME_LIGHT_1 = [212, 225, 87];
+    const COLOR_LIME_DARK_1 = [192, 202, 51];
+    const COLOR_LIME_DARK_2 = [175, 180, 43];
+    const COLOR_LIME_DARK_3 = [158, 157, 36];
+    const COLOR_LIME_DARK_4 = [130, 119, 23];
+
+    const COLOR_DIV_9rr = [33, 33, 33];
+
+    const COLOR_YELLOW = [255, 235, 59];
+    const COLOR_YELLOW_BRIGHT = [255, 234, 0];
+
+
+    const COLOR_YELLOW_LIGHT_3 = [255, 245, 157];
+    const COLOR_YELLOW_LIGHT_2 = [255, 241, 118];
+    const COLOR_YELLOW_LIGHT_1 = [255, 238, 88];
+    const COLOR_YELLOW_DARK_1 = [253, 216, 53];
+    const COLOR_YELLOW_DARK_2 = [251, 192, 45];
+    const COLOR_YELLOW_DARK_3 = [249, 168, 37];
+    const COLOR_YELLOW_DARK_4 = [245, 127, 23];
+    const COLOR_YELLOW_BRIGHT_3 = [255, 234, 0];
+    const COLOR_YELLOW_BRIGHT_4 = [255, 214, 0];
+
+    const COLOR_DIV_9rrff = [33, 33, 33];
+
+    const COLOR_AMBER = [255, 193, 7];
+    const COLOR_AMBER_LIGHT_3 = [255, 224, 130];
+    const COLOR_AMBER_LIGHT_2 = [255, 213, 79];
+    const COLOR_AMBER_LIGHT_1 = [255, 202, 40];
+    const COLOR_AMBER_DARK_1 = [255, 179, 0];
+    const COLOR_AMBER_DARK_2 = [255, 160, 0];
+    const COLOR_AMBER_DARK_3 = [255, 143, 0];
+    const COLOR_AMBER_DARK_4 = [255, 111, 0];
+    const COLOR_AMBER_BRIGHT_3 = [255, 196, 0];
+    const COLOR_AMBER_BRIGHT_4 = [255, 171, 0];
+
+    const COLOR_DIV_9rrdrfg = [33, 33, 33];
+
+    const COLOR_ORANGE = [255, 152, 0];
+    const COLOR_ORANGE_LIGHT_3 = [255, 204, 128];
+    const COLOR_ORANGE_LIGHT_2 = [255, 183, 77];
+    const COLOR_ORANGE_LIGHT_1 = [255, 167, 38];
+    const COLOR_RANGE_DARK_1 = [251, 140, 0];
+    const COLOR_ORANGE_DARK_2 = [245, 124, 0];
+    const COLOR_ORANGE_DARK_3 = [239, 108, 0];
+    const COLOR_ORANGE_DARK_4 = [230, 81, 0];
+    const COLOR_ORANGE_BRIGHT_3 = [255, 145, 0];
+    const COLOR_ORANGE_BRIGHT_4 = [255, 109, 0];
+
+    const COLOR_DIV_9rrdgtfrt = [33, 33, 33];
+
+
+    const COLOR_DEEP_ORANGE = [255, 87, 34];
+    const COLOR_DEEP_ORANGE_LIGHT_3 = [255, 171, 145];
+    const COLOR_DEEP_ORANGE_LIGHT_2 = [255, 138, 101];
+    const COLOR_DEEP_ORANGE_LIGHT_1 = [255, 112, 67];
+    const COLOR_DEEP_ORANGE_DARK_1 = [244, 81, 30];
+    const COLOR_DEEP_ORANGE_DARK_2 = [230, 74, 25];
+    const COLOR_DEEP_ORANGE_DARK_3 = [216, 67, 21];
+    const COLOR_DEEP_ORANGE_DARK_4 = [191, 54, 12];
+    const COLOR_DEEP_ORANGE_BRIGHT_3 = [255, 61, 0];
+    const COLOR_DEEP_ORANGE_BRIGHT_4 = [221, 44, 0];
+//    const COLOR_BROWN = [121, 85, 72];
+//    const COLOR_BROWN_LIGHT_3 = [188, 170, 164];
+//    const COLOR_BROWN_LIGHT_2 = [161, 136, 127];
+//    const COLOR_BROWN_LIGHT_1 = [141, 110, 99];
+//    const COLOR_BROWN_DARK_1 = [109, 76, 65];
+//    const COLOR_BROWN_DARK_2 = [93, 64, 55];
+//    const COLOR_BROWN_DARK_3 = [78, 52, 46];
+//    const COLOR_BROWN_DARK_4 = [62, 39, 35];
+//    const COLOR_BLUE_GREY = [96, 125, 139];
+//    const COLOR_BLUE_GREY_LIGHT_3 = [176, 190, 197];
+//    const COLOR_BLUE_GREY_LIGHT_2 = [144, 164, 174];
+//    const COLOR_BLUE_GREY_LIGHT_1 = [120, 144, 156];
+//    const COLOR_BLUE_GREY_DARK_1 = [84, 110, 122];
+//    const COLOR_BLUE_GREY_DARK_2 = [69, 90, 100];
+//    const COLOR_BLUE_GREY_DARK_3 = [55, 71, 79];
+//    const COLOR_BLUE_GREY_DARK_4 = [38, 50, 56];
+//    const COLOR_GREY = [97, 97, 97];
+//    const COLOR_GREY_LIGHT = [158, 158, 158];
+//    const COLOR_GREY_DARK_4 = [33, 33, 33];
+
+    /************** ORIG *****************/
+//    const COLOR_BLACK = [0, 0, 0];
+//    const COLOR_RED = 196;
+//    const COLOR_GREEN = [0, 205, 0];
+//    const COLOR_YELLOW = 226;
+//    const COLOR_BLUE = [0, 115, 229];
+//    const COLOR_MAGENTA = [255, 0, 255];
+//    const COLOR_CYAN = [0, 255, 255];
+//    const COLOR_WHITE = [255, 255, 255];
+//    const COLOR_GREY = 240;
+//    const COLOR_GRAY = 240;
+//    const COLOR_PINK = [232, 75, 146];
+//    const COLOR_PURPLE = 129;
+//    const COLOR_ORANGE = [255, 152, 0];
+//    const COLOR_BROWN = [121, 85, 72];
+//    const COLOR_TEAL = [0, 150, 136];
+//
+//    const COLOR_BRIGHT_YELLOW = 226;
+//    const COLOR_BRIGHT_GREEN = [0, 205, 0];
+//    const COLOR_BRIGHT_MAGENTA = [255, 0, 255];
+//    const COLOR_BRIGHT_RED = 196;
+//    const COLOR_BRIGHT_CYAN = [0, 255, 255];
+//
+//    const COLOR_DARK_TEAL = [0, 81, 72];
+//    const COLOR_DARK_RED = [122, 0, 0];
+//    const COLOR_DARK_YELLOW = [160, 160, 0];
+//    const COLOR_DARK_GREEN = [0, 89, 0];
+//    const COLOR_DARK_BLUE = [0, 0, 178];
+//    const COLOR_DARK_MAGENTA = [137, 0, 137];
+//    const COLOR_DARK_CYAN = [0, 107, 107];
+//    const COLOR_DARK_GRAY = 235;
+//    const COLOR_DARK_GREY = 235;
+//    const COLOR_DARK_PINK = [165, 20, 85];
+//    const COLOR_DARK_PURPLE = [102, 0, 102];
+//    const COLOR_DARK_ORANGE = [230, 81, 0];
+//    const COLOR_DARK_BROWN = [64, 45, 38];
 
 //    const COLOR_LIGHT_GRAY = 250;
 //    const COLOR_LIGHT_GREY = 250;
