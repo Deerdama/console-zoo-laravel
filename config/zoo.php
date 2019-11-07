@@ -1,6 +1,7 @@
 <?php
 
-use Deerdama\ConsoleZoo\Zoo;
+use Deerdama\ConsoleZoo\Icon;
+use Deerdama\ConsoleZoo\Color;
 
 return [
 
@@ -17,24 +18,28 @@ return [
     */
 
     'defaults_info' => [
-        'icons' => Zoo::TURTLE,
-        'color' => Zoo::COLOR_BLUE,
+        'icons' => Icon::TURTLE,
+        'color' => Color::BLUE,
         'bold'
     ],
 
     'defaults_success' => [
-        'icons' => Zoo::SQUIRREL,
-        'color' => Zoo::COLOR_GREEN
+        'icons' => Icon::SQUIRREL,
+        'color' => Color::GREEN,
+        'bold'
+
     ],
 
     'defaults_warning' => [
-        'icons' => Zoo::PIG,
-        'color' => Zoo::COLOR_ORANGE
+        'icons' => Icon::PIG,
+        'color' => Color::ORANGE,
+        'bold'
+
     ],
 
     'defaults_error' => [
-        'icons' => Zoo::WEARY_CAT_FACE,
-        'color' => Zoo::COLOR_RED,
+        'icons' => Icon::WEARY_CAT_FACE,
+        'color' => Color::RED,
         'bold'
     ]
 ];
