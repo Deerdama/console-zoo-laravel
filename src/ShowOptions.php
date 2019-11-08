@@ -73,11 +73,11 @@ class ShowOptions extends Command
 
         foreach ($colors as $name => $color) {
             if (is_array($color)) {
-                $text = Color::SET_COLOR_RGB . implode(';', $color);
-                $background = Color::SET_BG_RGB . implode(';', $color);
+                $text = Others::SET_COLOR_RGB . implode(';', $color);
+                $background = Others::SET_BG_RGB . implode(';', $color);
             } else if (is_integer($color)) {
-                $text = Color::SET_COLOR . $color;
-                $background = Color::SET_BG . $color;
+                $text = Others::SET_COLOR . $color;
+                $background = Others::SET_BG . $color;
             } else {
                 continue;
             }
