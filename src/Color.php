@@ -4,11 +4,6 @@ namespace Deerdama\ConsoleZoo;
 
 class Color
 {
-    const SET_COLOR = "38;5;";
-    const SET_COLOR_RGB = "38;2;";
-    const SET_BG = "48;5;";
-    const SET_BG_RGB = "48;2;";
-
     const BLACK = [0, 0, 0];
     const WHITE = [255, 255, 255];
 
@@ -112,7 +107,7 @@ class Color
     const LIGHT_GREEN_BRIGHT_2 = [118, 255, 3];
     const LIGHT_GREEN_BRIGHT_3 = [100, 221, 23];
 
-        const GREEN = [0, 155, 0];
+    const GREEN = [0, 155, 0];
 //    const GREEN = [48, 160, 67];
 //    const GREEN111 = [54, 178, 75];
 //    const GREEN_LIGHT_44 = [200, 230, 201];
@@ -219,6 +214,8 @@ class Color
     const PURPLE_BRIGHT_1 = [224, 64, 251];
     const PURPLE_BRIGHT_2 = [213, 0, 249];
     const PURPLE_BRIGHT_3 = [170, 0, 255];
+
+    const MAGENTA = [255, 0, 255];
 
     const PINK = [233, 30, 99];
     const PINK_LIGHT_4 = [248, 187, 208];
