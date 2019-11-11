@@ -14,6 +14,7 @@ return [
     | eg: changing the content of 'info' will change the style
     | when calling the $this->zooInfo() method.
     | All current parameters can be changed, and any other available param can be added
+    | https://github.com/Deerdama/console-zoo#Available-Parameters
     |
     */
 
