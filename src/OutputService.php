@@ -107,7 +107,9 @@ class OutputService
                     unset($currentDefaults[substr($value, 3)]);
                     unset($parameters[substr($value, 3)]);
                     unset($newParam[substr($value, 3)]);
-                } else if (isset($this->others[strtoupper($value)])) {
+                }
+
+                if (isset($this->others[strtoupper($value)])) {
                     $newParam[$value] = $this->others[strtoupper($value)];
                 }
             }
@@ -251,8 +253,9 @@ class OutputService
             $icon = $icon['utf8'];
         }
 
-        if (is_string($icon) && isset($this->icons[strtoupper($icon)])) {
-            $icon = $this->icons[strtoupper($icon)]['utf8'];
+        if (is_string($icon)) {
+            $icon = str_replace(" ", "_", $icon);
+            $icon = isset($this->icons[strtoupper($icon)]) ? $this->icons[strtoupper($icon)]['utf8'] : $icon;
         }
 
         return $icon;
@@ -284,6 +287,7 @@ class OutputService
     private function parseInlineParam($message, $origSequence)
     {
         preg_match('/<zoo.*<\/zoo>/U', $message, $match);
+        $param = [];
 
         if ($match) {
             $inline = $match[0];
