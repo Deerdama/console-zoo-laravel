@@ -1,7 +1,7 @@
 {
   "name": "deerdama/console-zoo",
   "version": "v1.0",
-  "description": "package to easily add styles and icons into console outputs",
+  "description": "package to easily add styles and icons into console outputs in laravel/artisan commands",
   "require": {
     "php": ">=7.1"
   },
