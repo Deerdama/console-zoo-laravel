@@ -222,7 +222,9 @@ class OutputService
      */
     private function prepareIcons($icons): string
     {
-        if (!$icons || !count((array)$icons)) {
+        $icons = $icons || $icons === false ? $icons : $this->defaultIcons;
+
+        if (!$icons) {
             return "";
         }
 
