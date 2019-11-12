@@ -2,70 +2,8 @@
 
 namespace Deerdama\ConsoleZoo;
 
-class Zoo
+class Icon
 {
-    /** styles and effects **/
-    const RESET = "\e[0m";
-    const SET_COLOR = "38;5;";
-    const SET_COLOR_RGB = "38;2;";
-    const SET_BG = "48;5;";
-    const SET_BG_RGB = "48;2;";
-
-    const BOLD = 1;
-    const FAINT = 2;
-    const ITALIC = 3;
-    const BLINK = 5;
-    const SWAP = 7; //swap font and background colors
-    const UNDERLINE = 4;
-    const DOUBLE_UNDERLINE = 21;
-    const OVERLINE = 53;
-    const CROSSED = 9;
-
-    /** colors **/
-    const COLOR_BLACK = [0, 0, 0];
-    const COLOR_RED = 196;
-    const COLOR_GREEN = [0, 205, 0];
-    const COLOR_YELLOW = 226;
-    const COLOR_BLUE = [0, 115, 229];
-    const COLOR_MAGENTA = [255, 0, 255];
-    const COLOR_CYAN = [0, 255, 255];
-    const COLOR_WHITE = [255, 255, 255];
-    const COLOR_GREY = 240;
-    const COLOR_GRAY = 240;
-    const COLOR_PINK = [232, 75, 146];
-    const COLOR_PURPLE = 129;
-    const COLOR_ORANGE = [255, 152, 0];
-    const COLOR_BROWN = [121, 85, 72];
-    const COLOR_TEAL = [0, 150, 136];
-
-    const COLOR_DARK_TEAL = [0, 81, 72];
-    const COLOR_DARK_RED = [122, 0, 0];
-    const COLOR_DARK_YELLOW = [160, 160, 0];
-    const COLOR_DARK_GREEN = [0, 89, 0];
-    const COLOR_DARK_BLUE = [0, 0, 178];
-    const COLOR_DARK_MAGENTA = [137, 0, 137];
-    const COLOR_DARK_CYAN = [0, 107, 107];
-    const COLOR_DARK_GRAY = 235;
-    const COLOR_DARK_GREY = 235;
-    const COLOR_DARK_PINK = [165, 20, 85];
-    const COLOR_DARK_PURPLE = [102, 0, 102];
-    const COLOR_DARK_ORANGE = [230, 81, 0];
-    const COLOR_DARK_BROWN = [64, 45, 38];
-
-//    const COLOR_LIGHT_GRAY = 250;
-//    const COLOR_LIGHT_GREY = 250;
-//    const COLOR_LIGHT_TEAL = [0, 81, 72];
-//    const COLOR_LIGHT_RED = [122, 0, 0];
-//    const COLOR_LIGHT_YELLOW = [160, 160, 0];
-//    const COLOR_LIGHT_GREEN = [0, 89, 0];
-//    const COLOR_LIGHT_BLUE = [0, 0, 178];
-//    const COLOR_LIGHT_MAGENTA = [137, 0, 137];
-//    const COLOR_LIGHT_CYAN = [0, 107, 107];
-//    const COLOR_LIGHT_PINK = [165, 20, 85];
-//    const COLOR_LIGHT_PURPLE = [102, 0, 102];
-//    const COLOR_LIGHT_ORANGE = [230, 81, 0];
-//    const COLOR_LIGHT_BROWN = [64, 45, 38];
-
     /** icon categories available **/
     const CATEGORIES = ['animals', 'nature', 'emoticons', 'food', 'transport', 'others'];
 
@@ -893,51 +831,4 @@ class Zoo
     const BELL_WITH_CANCELLATION_STROKE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\x95"];
     const MICROSCOPE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\xAC"];
     const TELESCOPE = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x94\xAD"];
-
-    public static function infoDefaults($param = []): array
-    {
-        $default = self::checkDefaultIcon(config('zoo.defaults_info'));
-        $parameters = array_merge($default, $param);
-
-        return $parameters;
-    }
-
-    public static function successDefaults($param = []): array
-    {
-        $default = self::checkDefaultIcon(config('zoo.defaults_success'));
-        $parameters = array_merge($default, $param);
-
-        return $parameters;
-    }
-
-    public static function warningDefaults($param = []): array
-    {
-        $default = self::checkDefaultIcon(config('zoo.defaults_warning'));
-        $parameters = array_merge($default, $param);
-
-        return $parameters;
-    }
-
-    public static function errorDefaults($param = []): array
-    {
-        $default = self::checkDefaultIcon(config('zoo.defaults_error'));
-        $parameters = array_merge($default, $param);
-
-        return $parameters;
-    }
-
-    /**
-     * prevent error in case the user uses the whole icon array instead of utf8 only
-     *
-     * @param array $param
-     * @return array
-     */
-    private static function checkDefaultIcon($param)
-    {
-        if (is_array($param['icons']) && isset($param['icons']['utf8'])) {
-            $param['icons'] = $param['icons']['utf8'];
-        }
-
-        return $param;
-    }
 }

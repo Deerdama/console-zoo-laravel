@@ -1,9 +1,10 @@
-Console Zoo
+Console Zoo For Laravel
 ================
 Laravel package to easily add some styling and icons to console outputs. 
-Even though it's called `Zoo`, it's not limited to animal icons only :grin:
+Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 * [Installation](#Installation)
+* [Display Options](#Display-All-Options)
 * [Available Parameters](#Available-Parameters)
 * [Basic Usage](#Basic-Usage)
 * [Defaults and Config](#Defaults-And-Config)
@@ -11,36 +12,43 @@ Even though it's called `Zoo`, it's not limited to animal icons only :grin:
 * [Icons](#Using-Icons)
 * [Inline Use](#Inline-Usage)
 
-<br>
-
-#### Display All Options
-
-To see all the available icons/colors and to check how they'll look in your console you can run the artisan command `php artisan zoo:available-options`
-
-:exclamation: Keep in mind that the icons/colors might not look exactly the same as the screenshots, and some might not even work for you, this depends on the console used (plus some other circumstances) and can't be controlled by the package itself.
-If you want to know more about the behind the scenes reason, and about the limitations, then you can find some info on [this wikipedia page](https://en.wikipedia.org/wiki/ANSI_escape_code)... or just google it
-
+<p>
+    <img src="https://images2.imgbox.com/df/e8/oOR6Ru0D_o.png" width="365px">
+</p>
 
 --------------------
 <br>
 
 ## Installation
  
-`composer.....`
+`composer require deerdama/console-zoo`
 
 <br>
 
+:grey_exclamation: **Laravel versions**: I used this in few laravel versions from 5.1 up to 6.5 and everything worked normally on all of those..
+
+* Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers
+
+* And in case someone wants to try this on **4.2**... the basic output methods `zoo()` and `surprise()` actually work, but forget about registering the service provider, using the preview command or using the default methods like `zooSuccess()` 
+  
+  
 :exclamation: If you'll want to change some default parameters then you'll need to publish the config file:
 
 `php artisan vendor:publish --provider=Deerdama\\ConsoleZoo\\ConsoleZooServiceProvider`
 
+-------------------
 <br>
 
-* Extra steps for older Laravel versions: To use the [artisan command](#Display-All-Options) to preview all the predefined colors and icons, then you'll need to register it manually (_I think it was for laravel under 5.5_).
 
-    Add the service provider `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers 
+## Display All Options
 
--------------------
+To see all the available colors and icons and to check how they'll look in your console you can run the artisan command `php artisan zoo:available-options`
+
+:exclamation: Keep in mind that the icons/colors might not look exactly the same as the screenshots (btw screenshots were taken in various consoles), and some might not even work for you, this depends on the console used (plus some other circumstances) and can't be controlled by the package itself.
+If you want to know more about the behind the scenes reason, and about the limitations, then you can find some info on [this wikipedia page](https://en.wikipedia.org/wiki/ANSI_escape_code)... or just google it
+
+
+----------------------------
 <br>
 
 
@@ -52,7 +60,7 @@ All parameters are optional.
 | --- | --- | --- |
 | color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
 | background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
-| icons  [**](#Using-Icons) | icon/s to display | string &#124; array |
+| icons  [**](#Using-Icons) | icon/s to display | string &#124; array &#124; bool |
 | bold | increase text intensity |
 | faint | decrease text intensity |
 | italic | apply italic style to text 
@@ -94,8 +102,7 @@ Check the [Available parameters](#available-parameters) section for more details
 ```
 
 <p>
-  <img src="https://images2.imgbox.com/fb/cb/Z7w7woLb_o.png" 
-  width="273" alt="Result">
+  <img src="https://images2.imgbox.com/db/d7/mg6BX96M_o.png" alt="Result">
 </p>
 
 <br>
@@ -106,7 +113,7 @@ Check the [Available parameters](#available-parameters) section for more details
     * The icons will be always random, but they can be limited to a certain `category`.
     * Available categories: _animals, nature, emoticons, food, transport, others_
     * All other parameters are allowed, default parameters will be used if none are passed
-    * Text color will be random if none is set as default nor explicitly passed
+    * Text color will be random if none is set as default nor explicitly passed, eg:
     
 ```php
     $this->surprise("message", [
@@ -124,16 +131,16 @@ Check the [Available parameters](#available-parameters) section for more details
     * `$this->zooSuccess($message, $optionalParam);`
     * `$this->zooWarning($message);`
     * `$this->zooError($message);`
-    
+
     <p>
-      <img src="https://images2.imgbox.com/fc/22/7vOT8EzZ_o.png" 
-      width="250" alt="Result">
+      <img src="https://images2.imgbox.com/e3/37/vNaUL4Se_o.png" alt="Result">
     </p>
+           
+   
     
 * **Configuring** the default messages: you can change the above default formats through the config file:
     * The config file needs to be [published](#Installation)!
-    * You'll find the file in your main `config\zoo.php` 
-    * Then just change/add the parameters however you want
+    * Then just change/add the parameters however you want in the `config\zoo.php`
 
 
 * **One time** defaults: if you want to setup a default style for the current command, then you can setup the defaults through `$this->zooSetDefaults($parameters)` at the beginning of your command without having to pass the same parameters with every output.
@@ -142,7 +149,8 @@ Check the [Available parameters](#available-parameters) section for more details
 
 ```php
     $this->zooSetDefaults([
-        'color' => 'blue',
+        'color' => 'cyan',
+        'icons' => 'wolf',
         'bold'
     ]);
 
@@ -151,10 +159,8 @@ Check the [Available parameters](#available-parameters) section for more details
 
 ```
 <p>
-  <img src="https://images2.imgbox.com/f7/53/qlwHB8WW_o.png" 
-  width="275" alt="Result">
+  <img src="https://images2.imgbox.com/5a/df/Z6kifMOx_o.png" alt="Result">
 </p>
-   
 
 * Whatever parameter you explicitly pass later on will overwrite the default. To overwrite default parameters that don't have a value, you can just add a `no_` in front of them. For example `underline` and `bold` can be cancelled with `no_underline`, `no_bold`.
 
@@ -162,13 +168,25 @@ Check the [Available parameters](#available-parameters) section for more details
     $this->zoo("I'm the chosen one!!", [
         'icons' => 'pig_face',
         'swap',
-        'no_bold'
+        'italic'
     ]);
 ```
 <p>
-  <img src="https://images2.imgbox.com/5f/0f/IlhxEUrm_o.png" 
-  width="255" alt="Result">
+  <img src="https://images2.imgbox.com/ac/70/sph4yzun_o.png" alt="Result">
 </p>
+
+
+* If you don't want any icons at all in an output that has them as default then you can just pass (or set it in the config) `['icons' => false]`, eg: 
+
+```php
+    $this->zooError("You are kind of boring..", [
+        'icons' => false
+    ]);
+```
+<p>
+  <img src="https://images2.imgbox.com/9f/90/dc04VhqE_o.png" alt="Result">
+</p>
+
 
 
 ------------------
@@ -179,16 +197,25 @@ Check the [Available parameters](#available-parameters) section for more details
 
 Text and background colors can be changed through the `color` and `background` parameters.
 
+There are multiple predefined colors that can be displayed through the [artisan command](#Display-All-Options). There are all the basic colors and each of them has few lighter/darker/bright options. 
+For example `blue` also has `blue_light_1`, `blue_dark_2`, `blue_bright_2` etc... 
+Most colors fo up to `xxx_light_4`, `xxx_dark_4` and `xxx_bright_3` 
+
 The colors can be passed in multiple ways:
 
-1. **string** - name of the color: `['color' => 'red', 'background' => ' dark blue']`
+1. **string** - name of the color: `['color' => 'red', 'background' => 'blue_dark_1']`
 2. **array** - Use array to pass any color as rgb: `['color' => [255, 0, 0], 'background' => [0, 0, 255]]`
 3. **integer** - You can pass the [ANSI color codes](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors) directly as int: `['color' => 1, 'background' => 4]`
-4. **mix** - If you want to take advantage of your IDE then you can always use the defined constants in *Zoo.php* directly `['color' => Zoo::RED_COLOR, 'background' => Zoo::BLUE_COLOR]`
+4. **mix** - If you want to take advantage of your IDE then you can always use the defined constants in *Color.php* directly `['color' => Color::RED, 'background' => Color::BLUE]`
 
 * Check the [Inline usage](#inline-usage) section for details about how to change colors only to some part of the text
 
-[Use the artisan command to preview the predefined colors...](#Display-Options)
+[Use the artisan command to see all the predefined colors...](#Display-All-Options)
+
+<p>
+   <img src="https://images2.imgbox.com/a8/ef/AxQDc4p3_o.png" alt="colors" height="670px">
+</p>
+and so on....
 
 ----------------
 <br>
@@ -207,54 +234,52 @@ The colors can be passed in multiple ways:
 ```
 
 <p>
-  <img src="https://images2.imgbox.com/e2/40/baebhNrw_o.png" 
-  width="260" alt="Result">
+  <img src="https://images2.imgbox.com/57/b6/1EqBkU8P_o.png" width="290" alt="Result">
 </p>
 
-* As with the colors, you can use the `Zoo` class constants directly eg: `['icons' => Zoo::SQUIRREL]`
+* As with the colors, you can use the `Icon` class constants directly eg: `['icons' => Icon::SQUIRREL]`
 * If you want to use an icon that is not available, you can always pass the raw `utf-8` code of whatever icon you need, eg `['icons' => "\xF0\x9F\x90\xBF\xEF\xB8\x8F"]`  <sub><sup>(Still a squirrel)</sup></sub>. The raw utf-8 icon **must be** inside **double quotes**
 * Check the [Inline usage](#inline-usage) section for details about adding icons anywhere inside the text
 
-
-[Use the artisan command to display all the available icons...](#Display-Options) (_Tip: You can filter by category if you choose the option to show "icons" only_)
+There are over 700 predefined icons, [Use the artisan command to display all the available icons...](#Display-All-Options) (_Tip: You can filter by category if you choose the option to show "icons" only_)
 
 ------------------
 <br>
 
 
-### Inline usage
+## Inline usage
 
 * **Inline Style**:  To modify just just part of the text you can pass inline attributes within the `<zoo {PARAMETERS}></zoo>` tag
-    * Parameters requiring a value (color/background) **must have the value within quotes** (doesn't matter is single or double)
+    * Parameters requiring a value (color/background) **must have the value within quotes** (doesn't matter if single or double)
     * Other parameters should be unquoted and separated by a space 
     
  ```php
-    $this->zoo("Main style <zoo color='dark magenta' italic>inline style</zoo>, main again <zoo swap> 2nd inline </zoo>, the end", [
-        'icons' => ['mouse'],
+    $this->zoo("Main style <zoo color='magenta' italic>inline style</zoo>, main again <zoo swap> 2nd inline </zoo>... 
+                <zoo color='pink bright 2'>it's not rocket science..</zoo> ", [
+        'icons' => ['baby_chick'],
         'color' => 'blue',
         'bold'
     ]);
 ```
+
 <p>
-  <img src="https://images2.imgbox.com/c8/3a/reYkuz1S_o.png" 
-  width="575" alt="Result">
+  <img src="https://images2.imgbox.com/43/85/IxbG93jK_o.png" alt="Result">
 </p>
 
-* **Inline Icons**: To add icons inside the text you can use the `<icon>{icon}}</icon>` tag.
+* **Inline Icons**: To add icons inside the text you can use the `<icon>{icon}</icon>` tag.
     * Each tag can contain ONLY ONE icon
     * The message can contain multiple icon tags
     
 ```php
-    $this->zoo(" I'm actually a fluffy <icon>unicorn</icon>, really!!! <icon>face_with_sunglasses</icon>", [
-        'color' => 'purple',
+    $this->zoo("I'm actually a fluffy <icon>unicorn</icon>, really!!! <icon>face_with_sunglasses</icon>", [
+        'color' => 'pink bright 2',
         'icons' => ['horse'],
         'bold'
     ]);
 ```
 
 <p>
-  <img src="https://images2.imgbox.com/39/c5/bDzNwrmA_o.png" 
-  width="425" alt="Result">
+  <img src="https://images2.imgbox.com/2d/14/g6AZ0ZND_o.png" alt="Result">
 </p>
     
 
