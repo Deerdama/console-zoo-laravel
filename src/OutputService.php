@@ -298,7 +298,7 @@ class OutputService
             if ($color) {
                 preg_match('/(?<=\[).*(?=])/U', $color[0], $colorArr);
                 $param['color'] = $colorArr ? explode(',', str_replace(' ', '', $colorArr[0])) : $color[0];
-                $inline = preg_replace('/color=[",\'].*[",\']/', '', $inline);
+                $inline = preg_replace('/color=[",\'].*[",\']/U', '', $inline);
             }
 
             if ($background) {
@@ -364,7 +364,7 @@ class OutputService
         $parameters = array_merge($default, $param);
         $icons = $parameters['icons'];
         unset($parameters['icons']);
-        $message = $message . "\e[0m  " . $this->appendIcons($icons);
+        $message = $message . "\e[0m " . $this->appendIcons($icons);
         $output = $this->prepareOutput($message, $icons, $parameters, true);
 
         return $output;
