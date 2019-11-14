@@ -28,14 +28,12 @@ return [
         'icons' => Icon::SQUIRREL,
         'color' => Color::GREEN,
         'bold'
-
     ],
 
     'warning' => [
         'icons' => Icon::PIG,
         'color' => Color::ORANGE,
         'bold'
-
     ],
 
     'error' => [
