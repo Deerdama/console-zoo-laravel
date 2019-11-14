@@ -36,7 +36,7 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 ## Installation
  
-`composer require deerdama/console-zoo`
+`composer require deerdama/console-zoo-laravel`
 
 <br>
 
