@@ -39,7 +39,7 @@ class Icon
     const BOAR = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x97"];
     const PIG_NOSE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBD"];
     const RAM = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x8F"];
-    const EWE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x91"];
+    const SHEEP = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x91"];
     const GOAT = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x90"];
     const CAMEL = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xAA"];
     const TWO_HUMP_CAMEL = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xAB"];
@@ -78,12 +78,6 @@ class Icon
     const OWL = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\xA6\x89"];
     const PEACOCK = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\xA6\x9A"];
     const PARROT = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\xA6\x9C"];
-    const SHEEP = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x91"];
-    const FROG_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xB8"];
-    const HAMSTER_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xB9"];
-    const WOLF_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBA"];
-    const BEAR_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBB"];
-    const PANDA_FACE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xBC"];
     const FROG = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\xB8"];
     const CROCODILE = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\x90\x8A"];
     const LIZARD = ['type' => 'icon', 'category' => 'animals', 'utf8' => "\xF0\x9F\xA6\x8E"];
@@ -218,7 +212,6 @@ class Icon
 
     const CHESTNUT = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8C\xB0"];
     const EAR_OF_MAIZE = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8C\xBD"];
-    const EAR_OF_RICE = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8C\xBE"];
     const MUSHROOM = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8D\x84"];
     const TOMATO = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8D\x85"];
     const AUBERGINE = ['type' => 'icon', 'category' => 'food', 'utf8' => "\xF0\x9F\x8D\x86"];
