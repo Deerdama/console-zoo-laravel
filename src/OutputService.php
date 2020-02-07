@@ -2,6 +2,8 @@
 
 namespace Deerdama\ConsoleZoo;
 
+use Carbon\Carbon;
+
 class OutputService
 {
     /** @var array */
@@ -42,6 +44,7 @@ class OutputService
         $this->defaultIcons = $param['icons'] ?? [];
         unset($param['icons']);
         $this->currentDefaults = $this->prepareParameters($param, true);
+        $this->useTimestamps($param, true);
     }
 
     /**
@@ -57,9 +60,13 @@ class OutputService
     {
         $ansi = $this->prepareSequence($param, $ignoreDefault);
         $icons = $this->prepareIcons($icons);
-        $message = $this->prepareMessage($message, $ansi);
 
-        $output = "  " . $icons . $ansi . $message;
+        if ($this->useTimestamps($param) === true) {
+            $timestamp = $this->getTimestamp();
+        }
+
+        $message = $this->prepareMessage($message, $ansi);
+        $output = ($timestamp ?? ' ') . $icons . $ansi . $message;
 
         return $output;
     }
@@ -120,6 +127,8 @@ class OutputService
         if ($ignoreDefaults !== true) {
             $result = array_merge($currentDefaults, $result);
         }
+
+        unset($result['timestamp']);
 
         return $result;
     }
@@ -272,7 +281,7 @@ class OutputService
     {
         $message = $this->parseInlineParam($message, $mainSequence);
         $message = $this->parseInlineIcons($message);
-        $result = " " . $message . Others::RESET;
+        $result = $message . Others::RESET;
 
         return $result;
     }
@@ -430,5 +439,49 @@ class OutputService
         }
 
         return $icon;
+    }
+
+    /**
+     * check if timestamps should be added to the current output
+     *
+     * @param array $param
+     * @param bool $defaults
+     */
+    public function useTimestamps($param = [], $defaults = false): bool
+    {
+        if (isset($param['timestamp']) && $param['timestamp'] === false) {
+            $inParam = false;
+        }
+
+        if (in_array('timestamp', $param)
+            || (isset($param['timestamp']) && $param['timestamp'] === true)) {
+            $inParam = true;
+        }
+
+        if (isset($inParam)) {
+            $defaults === true ? $this->currentDefaults['timestamp'] = $inParam : null;
+            return $inParam;
+        }
+
+        if (isset($this->currentDefaults['timestamp'])) {
+            return $this->currentDefaults['timestamp'];
+        }
+
+        return config('zoo.timestamp');
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimestamp($param = [])
+    {
+        $timestamps = array_merge(config('zoo.time'), $param);
+        $time = Carbon::now($timestamps['tz'])->format($timestamps['format']);
+        $icon = $timestamps['icons'];
+        $timestamps['timestamp'] = false;
+        unset($timestamps['icons'], $timestamps['tz'], $timestamps['format']);
+        $result = $this->prepareOutput($time, $icon, $timestamps, true);
+
+        return $result . ' ';
     }
 }

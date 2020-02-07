@@ -11,12 +11,14 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 [<img src="https://images2.imgbox.com/c0/4d/7Z3gDCKz_o.png" alt="Colors">](#Changing-Colors)
 
+<br>
 
 * [Installation](#Installation)
 * [Display All Options](#Display-All-Options)
 * [Available Parameters](#Available-Parameters)
 * [Basic Usage](#Basic-Usage)
 * [Defaults and Config](#Defaults-And-Config)
+* [Timestamps](#Timestamps)
 * [Colors](#Changing-Colors)
 * [Icons](#Using-Icons)
 * [Inline Use](#Inline-Usage)
@@ -36,11 +38,11 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 ## Installation
  
-`composer require deerdama/console-zoo-laravel`
+**`composer require deerdama/console-zoo-laravel`**
 
 <br>
 
-:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (tested on a bunch of versions from 5.0 up to 6.5 and everything worked normally on all of those)
+:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (tested on a bunch of versions from 5.0 up to 6.X and everything worked normally on all of those)
 
 * Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers
 
@@ -75,6 +77,7 @@ All parameters are optional.
 | color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
 | background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
 | icons  [**](#Using-Icons) | icon/s to display | string &#124; array &#124; bool |
+| timestamp [**](#Timestamps) | adds timestamp in front of the output | bool |
 | bold | increase text intensity |
 | faint | decrease text intensity |
 | italic | apply italic style to text 
@@ -123,6 +126,8 @@ Check the [Available parameters](#available-parameters) section for more details
 <br>
 
 * **Other general methods** can be found in the [Defaults](#Defaults-And-Config) section. Plus the [Inline usage](#inline-usage) section contains details about how to apply multiple styles within one message and add icons anywhere
+
+* **Empty Line**: to add some line breaks you can use `$this->br();`, this will simply output one empty line, if you want a bigger gap, you can just pass the number of lines you want, eg. `$this->br(4);`
 
 * **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
     * The icons will be always random, but they can be limited to a certain `category`.
@@ -200,6 +205,61 @@ Check the [Available parameters](#available-parameters) section for more details
 <p>
   <img src="https://images2.imgbox.com/9f/90/dc04VhqE_o.png" alt="Result">
 </p>
+
+
+------------------------------
+<br>
+
+## Timestamps
+
+* A timestamp can be added in front of each output by either passing the **`timestamp`** parameter, eg: 
+ 
+ ```php
+    $this->zooInfo("How about some sleep??", [
+        'timestamp' => true
+    ]);
+```
+
+<p>
+    <img src="https://images2.imgbox.com/bd/82/Pkq0UyTm_o.png"/></img>
+</p>
+
+
+* To always add the timestamp by default, change the `'timestamp' => false` to `true` in the published config `zoo.php`.
+
+* In the config file you can also change the default timezone and the timestamp's format plus the output style, defaults:
+
+```php
+'time' => [
+    'tz' => 'UTC',
+    'format' => '[Y-m-d H:i:s]',
+    'color' => Color::YELLOW_LIGHT_1,
+    'bold' => false,
+    'italic' => false,
+    'icons' => false
+]
+```
+
+
+* To just output the current time only, there is the **`time()`** function which accepts extra parameters to overwrite the defaults, couple of examples..
+
+```php
+    $this->time();
+    $this->br();
+    $this->time(['format' => 'H:i:s T', 'color' => 'blue']);
+    $this->br();
+    $this->time([
+        'tz' => 'pst',
+        'format' => 'jS \o\f F, Y H:i:s',
+        'icons' => 'alarm_clock',
+        'color' => 'green_bright_3'
+    ]);
+```
+
+<p>
+<img src="https://images2.imgbox.com/01/bd/vxyw1FyC_o.png"/>
+</p>
+    
 
 
 

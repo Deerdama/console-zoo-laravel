@@ -40,5 +40,24 @@ return [
         'icons' => Icon::WEARY_CAT_FACE,
         'color' => Color::RED,
         'bold'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Timestamps
+    |--------------------------------------------------------------------------
+    */
+
+    /* whether a timestamp should be added in front of each output */
+    'timestamp' => false,
+
+    /* default timestamp format, timezone and style */
+    'time' => [
+        'tz' => 'UTC',
+        'format' => '[Y-m-d H:i:s]',
+        'color' => Color::YELLOW_LIGHT_1,
+        'bold' => false,
+        'italic' => false,
+        'icons' => false
     ]
 ];
