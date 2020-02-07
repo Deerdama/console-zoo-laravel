@@ -122,20 +122,15 @@ trait ConsoleZoo
             $this->line("");
         }
     }
+
+    /**
+     * output current timestamp
+     *
+     * @param array $param
+     */
+    public function time($param = [])
+    {
+        $output = $this->zooService->getTimestamp($param);
+        $this->output->writeln($output);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
