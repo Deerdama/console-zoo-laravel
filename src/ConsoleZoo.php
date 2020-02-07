@@ -110,6 +110,18 @@ trait ConsoleZoo
         $output = $this->zooService->surpriseOutput($message, $param);
         $this->output->writeln($output);
     }
+
+    /**
+     * output empty lines
+     *
+     * @param int $lines
+     */
+    public function br($lines = 1)
+    {
+        for ($x = 1; $x <= $lines; $x++) {
+            $this->line("");
+        }
+    }
 }
 
 

@@ -11,6 +11,7 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 [<img src="https://images2.imgbox.com/c0/4d/7Z3gDCKz_o.png" alt="Colors">](#Changing-Colors)
 
+<br>
 
 * [Installation](#Installation)
 * [Display All Options](#Display-All-Options)
@@ -36,7 +37,7 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 ## Installation
  
-`composer require deerdama/console-zoo-laravel`
+**`composer require deerdama/console-zoo-laravel`**
 
 <br>
 
@@ -123,6 +124,8 @@ Check the [Available parameters](#available-parameters) section for more details
 <br>
 
 * **Other general methods** can be found in the [Defaults](#Defaults-And-Config) section. Plus the [Inline usage](#inline-usage) section contains details about how to apply multiple styles within one message and add icons anywhere
+
+* **Empty Line**: to add some line breaks you can use `$this->br();`, this will simply output one empty line, if you want a bigger gap, you can just pass the number of lines you want, eg. `$this->br(4);`
 
 * **Surprise** If you want to keep it random then you can use `$this->surprise($messageString, $optionalParam)`
     * The icons will be always random, but they can be limited to a certain `category`.
