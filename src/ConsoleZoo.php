@@ -2,10 +2,15 @@
 
 namespace Deerdama\ConsoleZoo;
 
+use Carbon\Carbon;
+
 trait ConsoleZoo
 {
     /** @var OutputService */
     protected $zooService;
+
+    /** @var Carbon */
+    protected $startTime;
 
     /**
      * set default style (optional)
@@ -14,7 +19,7 @@ trait ConsoleZoo
      */
     public function zooSetDefaults($param)
     {
-        $this->start();
+        $this->init();
         $this->zooService->setDefaults($param);
     }
 
@@ -33,7 +38,7 @@ trait ConsoleZoo
     /**
      * check/create service instance
      */
-    public function start()
+    public function init()
     {
         if (!$this->zooService) {
             $this->zooService = app(OutputService::class);
@@ -49,7 +54,7 @@ trait ConsoleZoo
      */
     public function zooOutput($message = "", $icons = [], $param = [], $ignoreDefault = false)
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->prepareOutput($message, $icons, $param, $ignoreDefault);
         $this->output->writeln($output);
     }
@@ -60,7 +65,7 @@ trait ConsoleZoo
      */
     public function zooInfo($message = "", $param = [])
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->defaultOutputs($message, $param, 'info');
         $this->output->writeln($output);
     }
@@ -71,7 +76,7 @@ trait ConsoleZoo
      */
     public function zooSuccess($message = "", $param = [])
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->defaultOutputs($message, $param, 'success');
         $this->output->writeln($output);
     }
@@ -82,7 +87,7 @@ trait ConsoleZoo
      */
     public function zooWarning($message = "", $param = [])
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->defaultOutputs($message, $param, 'warning');
         $this->output->writeln($output);
     }
@@ -93,7 +98,7 @@ trait ConsoleZoo
      */
     public function zooError($message = "", $param = [])
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->defaultOutputs($message, $param, 'error');
         $this->output->writeln($output);
     }
@@ -106,7 +111,7 @@ trait ConsoleZoo
      */
     public function surprise($message = "", $param = [])
     {
-        $this->start();
+        $this->init();
         $output = $this->zooService->surpriseOutput($message, $param);
         $this->output->writeln($output);
     }
@@ -132,5 +137,35 @@ trait ConsoleZoo
     {
         $output = $this->zooService->getTimestamp($param);
         $this->output->writeln($output);
+    }
+
+    /**
+     * set the initial time
+     */
+    public function start()
+    {
+        $this->startTime = Carbon::now();
+    }
+
+    /**
+     * output the duration from the set start
+     *
+     * @param array $param
+     */
+    public function duration($param = [])
+    {
+        $this->init();
+        $parameters = array_merge(config('zoo.duration'), $param);
+
+        try {
+            $duration = $this->zooService->getDuration($this->startTime, $parameters['format']);
+        } catch (\Throwable $e) {
+            $this->zooError('To see the current duration, you need to start the timer first!');
+            $this->br();
+            $this->zoo('    Call <zoo underline>$this->start();</zoo> to start the timer', ['color' => 'yellow_light_2', 'italic', 'no_bold']);
+            exit;
+        }
+        unset($parameters['format']);
+        $this->zoo($duration, $parameters);
     }
 }
