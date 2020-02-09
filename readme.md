@@ -1,9 +1,12 @@
 Console Zoo For Laravel
 ================
 
-The purpose of this laravel package is to easily make console outputs less boring, and to be able to quickly style the content at any time.
+The purpose of this laravel package is to easily make console outputs less boring, and to be able to quickly style the content at any time. 
+Plus a couple more helpers like [time and duration](#Timestamps-and-Duration) outputs. 
 
-Methods with typical [predefined formats](#Defaults-And-Config) are included: `success`, `info`, `warning`, `error`
+Methods with typical [predefined formats](#Defaults-And-Config) are included: `success`, `info`, `warning`, `error`. 
+
+
 
 Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
@@ -18,7 +21,7 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 * [Available Parameters](#Available-Parameters)
 * [Basic Usage](#Basic-Usage)
 * [Defaults and Config](#Defaults-And-Config)
-* [Timestamps](#Timestamps)
+* [Timestamps and Duration](#Timestamps-and-Duration)
 * [Colors](#Changing-Colors)
 * [Icons](#Using-Icons)
 * [Inline Use](#Inline-Usage)
@@ -30,8 +33,9 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 [<img src="https://images2.imgbox.com/29/1c/v2TS3mo7_o.png" alt="Defaults">](#Defaults-And-Config)
 
-[<img src="https://images2.imgbox.com/7b/cf/OVDRFxQM_o.png" alt="Inline">](#Inline-Usage)
+[<img src="https://images2.imgbox.com/c2/1b/zgEwL1Ye_o.png" alt="Duration">](#Timestamps-and-Duration)
 
+[<img src="https://images2.imgbox.com/7b/cf/OVDRFxQM_o.png" alt="Inline">](#Inline-Usage)
 
 --------------------
 <br>
@@ -88,6 +92,8 @@ All parameters are optional.
 | blink | blink outputted text |
 | swap | swap the text and background colors |
 | category | this is for the random icon only | string |
+| tz | available for the timestamp(); [**](#Timestamps and Duration) | string |
+| format | available for the timestamp() and duration() [**](#Timestamps and Duration) | string |
 
 --------------------
 <br>
@@ -210,9 +216,9 @@ Check the [Available parameters](#available-parameters) section for more details
 ------------------------------
 <br>
 
-## Timestamps
+## Timestamps and Duration
 
-* A timestamp can be added in front of each output by either passing the **`timestamp`** parameter, eg: 
+* A **timestamp** can be added in front of each output by either passing the **`timestamp`** parameter,
  
  ```php
     $this->zooInfo("How about some sleep??", [
@@ -225,23 +231,12 @@ Check the [Available parameters](#available-parameters) section for more details
 </p>
 
 
-* To always add the timestamp by default, change the `'timestamp' => false` to `true` in the published config `zoo.php`.
+or it can be setup as default by changing the `'timestamp' => false` to `true` in the published config `zoo.php`.
 
-* In the config file you can also change the default timezone and the timestamp's format plus the output style, defaults:
-
-```php
-'time' => [
-    'tz' => 'UTC',
-    'format' => '[Y-m-d H:i:s]',
-    'color' => Color::YELLOW_LIGHT_1,
-    'bold' => false,
-    'italic' => false,
-    'icons' => false
-]
-```
+* In the config's `time` array you can also change the default timezone and the timestamp's format plus its output style
 
 
-* To just output the current time only, there is the **`time()`** function which accepts extra parameters to overwrite the defaults, couple of examples..
+* To just output the **current time** only, there is the **`time()`** function which accepts extra parameters to overwrite the defaults, couple of examples..
 
 ```php
     $this->time();
@@ -259,10 +254,31 @@ Check the [Available parameters](#available-parameters) section for more details
 <p>
 <img src="https://images2.imgbox.com/01/bd/vxyw1FyC_o.png"/>
 </p>
+
+* **Duration**: you can get the current duration with **`$this->duration();`**, but you need to start the timer first! to set the starting time call **`$this->start();`**.
+The duration has a default format and style that can be changed in the config or passed as parameter in `$this->duration($param)`, eg: 
+
+```php
+    $this->duration();
+
+    $this->duration([
+        'format' => 'Total duration %s.%f seconds',
+        'color' => 'pink_bright_2',
+        'icons' => 'snail'
+    ]);
     
+    $this->duration([
+        'timestamp' => true,
+        'format' => '%i min and %s sec',
+        'icons' => false
+    ]);
+```
 
+<p>
+<img src="https://images2.imgbox.com/9a/2f/tsAKhC2X_o.png"/>
+</p>
 
-
+* To format the duration use the [DateInterval](https://www.php.net/manual/en/dateinterval.format.php) formatting
 ------------------
 <br>
  
