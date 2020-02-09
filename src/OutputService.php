@@ -484,4 +484,37 @@ class OutputService
 
         return $result . ' ';
     }
+
+    /**
+     * get the formatted duration
+     *
+     * @param Carbon $start
+     * @param null|string $format
+     * @return string
+     */
+    public function getDuration($start, $format = null)
+    {
+        $format = $format ?: config('zoo.duration.format');
+        $diff = $start->diff();
+
+        if (!preg_match('/%d/i', $format)) {
+            $diff->h = $diff->h + ($diff->d * 24);
+        } else if (!$diff->d) {
+            $format = preg_replace('/(?=%d).*(?=%)/iU', '', $format);
+        }
+
+        if (!preg_match('/%h/i', $format)) {
+            $diff->i = $diff->i + ($diff->h * 60);
+        } else if (!$diff->h) {
+            $format = preg_replace('/(?=%h).*(?=%)/iU', '', $format);
+        }
+
+        if (!preg_match('/%i/i', $format)) {
+            $diff->s = $diff->s + ($diff->i * 60);
+        } else if (!$diff->i) {
+            $format = preg_replace('/(?=%i).*(?=%)/iU', '', $format);
+        }
+
+        return $diff->format($format);
+    }
 }

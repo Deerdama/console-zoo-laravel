@@ -59,5 +59,16 @@ return [
         'bold' => false,
         'italic' => false,
         'icons' => false
+    ],
+
+    /* default format and style of the $this->>duration(); output */
+    'duration' => [
+        'format' => '%hh %im %ss',
+        'color' => Color::GREEN_BRIGHT_3,
+        'icons' => Icon::HOURGLASS_WITH_FLOWING_SAND,
+        'timestamp' => false,
+        'bold' => false,
+        'italic' => false,
+        'swap' => false
     ]
 ];
