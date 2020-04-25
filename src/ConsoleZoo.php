@@ -135,6 +135,7 @@ trait ConsoleZoo
      */
     public function time($param = [])
     {
+        $this->init();
         $output = $this->zooService->getTimestamp($param);
         $this->output->writeln($output);
     }
