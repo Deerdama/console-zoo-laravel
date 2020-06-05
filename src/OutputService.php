@@ -476,6 +476,11 @@ class OutputService
     public function getTimestamp($param = [])
     {
         $timestamps = array_merge(config('zoo.time'), $param);
+
+        if (!isset($timestamps['tz'])) {
+            $timestamps['tz'] = config('app.timezone') ?? 'UTC';
+        }
+
         $time = Carbon::now($timestamps['tz'])->format($timestamps['format']);
         $icon = $timestamps['icons'];
         $timestamps['timestamp'] = false;
