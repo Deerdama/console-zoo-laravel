@@ -53,7 +53,7 @@ return [
 
     /* default timestamp format, timezone and style */
     'time' => [
-        'tz' => 'UTC',
+        'tz' => config('app.timezone') ?? 'UTC',
         'format' => '[Y-m-d H:i:s]',
         'color' => Color::YELLOW_LIGHT_1,
         'bold' => false,
