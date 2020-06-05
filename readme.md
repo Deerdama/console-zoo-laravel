@@ -1,14 +1,11 @@
 Console Zoo For Laravel
 ================
 
-The purpose of this laravel package is to easily make console outputs less boring, and to be able to quickly style the content at any time. 
+The purpose of this laravel package is to easily make console outputs less boring, and to be able to quickly style the content and add 
+various icons at any time. 
 Plus a couple more helpers like [time and duration](#Timestamps-and-Duration) outputs. 
 
 Methods with typical [predefined formats](#Defaults-And-Config) are included: `success`, `info`, `warning`, `error`. 
-
-
-
-Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 <br>
 
@@ -46,7 +43,7 @@ Even though it's called **`Zoo`**, it's not limited to animal icons only :grin:
 
 <br>
 
-:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (tested on a bunch of versions from 5.0 up to 6.X and everything worked normally on all of those)
+:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (used and tested on a bunch of versions from `5.X`, `6.X` and `7.X` and everything worked normally on all of those)
 
 * Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers
 
@@ -233,7 +230,7 @@ Check the [Available parameters](#available-parameters) section for more details
 
 or it can be setup as default by changing the `'timestamp' => false` to `true` in the published config `zoo.php`.
 
-* In the config's `time` array you can also change the default timezone and the timestamp's format plus its output style
+* In the config's `time` array you can also change the default timezone and the timestamp's format plus its output style. Default timezone is the tz set in your config/app.php.
 
 
 * To just output the **current time** only, there is the **`time()`** function which accepts extra parameters to overwrite the defaults, couple of examples..
