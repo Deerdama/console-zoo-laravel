@@ -43,7 +43,7 @@ Methods with typical [predefined formats](#Defaults-And-Config) are included: `s
 
 <br>
 
-:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (used and tested on a bunch of versions from `5.X`, `6.X` and `7.X` and everything worked normally on all of those)
+:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (used and tested on a bunch of versions from `5.X`, `6.X`, `7.X` and `8.x` and everything worked normally on all of those)
 
 * Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers
 
