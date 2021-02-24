@@ -58,6 +58,12 @@ class OutputService
      */
     public function prepareOutput($message, $icons, $param, $ignoreDefault = false): string
     {
+        if (isset($param['icons_right']) && $param['icons_right'] !== false) {
+            $message = $message . Others::RESET . $this->appendIcons($param['icons_right']);
+        }
+
+        unset($param['category'], $param['icons'], $param['icons_right']);
+
         $ansi = $this->prepareSequence($param, $ignoreDefault);
         $icons = $this->prepareIcons($icons);
 
@@ -372,8 +378,11 @@ class OutputService
         $default = config("zoo.{$type}");
         $parameters = array_merge($default, $param);
         $icons = $parameters['icons'];
-        unset($parameters['icons']);
-        $message = $message . "\e[0m " . $this->appendIcons($icons);
+
+        if (!isset($parameters['icons_right']) || $parameters['icons_right'] !== false) {
+            $parameters['icons_right'] = $parameters['icons_right'] ?? $icons;
+        }
+
         $output = $this->prepareOutput($message, $icons, $parameters, true);
 
         return $output;
@@ -388,12 +397,11 @@ class OutputService
      */
     public function surpriseOutput($message, $param)
     {
-        $icon = $this->getRandomIcon($param['category'] ?? null);
-        $message = $message . "\e[0m " . $icon;
+        $icon = $param['icons'] ?? $this->getRandomIcon($param['category'] ?? null);
 
-        unset($param['category']);
-        unset($param['icons']);
-
+        if (!isset($param['icons_right']) || $param['icons_right'] !== false) {
+            $param['icons_right'] = $param['icons_right'] ?? $icon;
+        }
 
         if (!isset($param['color']) && !isset($this->currentDefaults['color'])) {
             $param['color'] = array_rand($this->colors);
@@ -416,7 +424,7 @@ class OutputService
             $icons = array_reverse($icons);
         }
 
-        return $this->prepareIcons($icons);
+        return ' ' . $this->prepareIcons($icons);
     }
 
     /**
@@ -453,7 +461,7 @@ class OutputService
             $inParam = false;
         }
 
-        if (in_array('timestamp', $param)
+        if (in_array('timestamp', $param, true)
             || (isset($param['timestamp']) && $param['timestamp'] === true)) {
             $inParam = true;
         }
@@ -484,7 +492,7 @@ class OutputService
         $time = Carbon::now($timestamps['tz'])->format($timestamps['format']);
         $icon = $timestamps['icons'];
         $timestamps['timestamp'] = false;
-        unset($timestamps['icons'], $timestamps['tz'], $timestamps['format']);
+        unset($timestamps['tz'], $timestamps['format']);
         $result = $this->prepareOutput($time, $icon, $timestamps, true);
 
         return $result . ' ';
