@@ -12,6 +12,9 @@ trait ConsoleZoo
     /** @var Carbon */
     protected $startTime;
 
+    /** @var array */
+    protected $laps = [];
+
     /**
      * set default style (optional)
      *
@@ -161,12 +164,51 @@ trait ConsoleZoo
         try {
             $duration = $this->zooService->getDuration($this->startTime, $parameters['format']);
         } catch (\Throwable $e) {
-            $this->zooError('To see the current duration, you need to start the timer first!');
-            $this->br();
-            $this->zoo('    Call <zoo underline>$this->start();</zoo> to start the timer', ['color' => 'yellow_light_2', 'italic', 'no_bold']);
-            exit;
+            $this->timerError();
         }
         unset($parameters['format']);
         $this->zoo($duration, $parameters);
+    }
+
+    /**
+     * add a lap and output the duration if $output == true
+     *
+     * @param bool $output
+     * @param array $param
+     */
+    public function lap($output = true, $param = [])
+    {
+        $this->init();
+
+        try {
+            $parameters = array_merge(config('zoo.duration'), $param);
+            $this->zooService->addLap($this->laps, $this->startTime, $parameters);
+
+            if ($output === true) {
+                $parameters = array_merge(config('zoo.lap_duration'), $param);
+                $outputText = end($this->laps)['duration'];
+
+                if ($parameters['prepend_text']) {
+                    $outputText = str_replace('{lap_number}', count($this->laps), $parameters['prepend_text']) . $outputText;
+                }
+
+                if ($parameters['append_text']) {
+                    $outputText = $outputText . str_replace('{lap_number}', count($this->laps), $parameters['append_text']);
+                }
+
+                unset($parameters['format'], $parameters['prepend_text'], $parameters['append_text']);
+                $this->zoo($outputText, $parameters);
+            }
+        } catch (\Throwable $e) {
+            $this->timerError();
+        }
+    }
+
+    public function timerError()
+    {
+        $this->zooError('To see the current duration, you need to start the timer first!');
+        $this->br();
+        $this->zoo('Call <zoo underline>$this->start();</zoo> to start the timer', ['color' => 'yellow_light_2', 'italic', 'no_bold']);
+        exit;
     }
 }
