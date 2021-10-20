@@ -510,6 +510,32 @@ class OutputService
         $format = $format ?: config('zoo.duration.format');
         $diff = $start->diff();
 
+        return $this->formatDuration($diff, $format);
+    }
+
+    /**
+     * @param array $laps
+     * @param Carbon $start
+     */
+    public function addLap(&$laps, $start, $param)
+    {
+        $now = Carbon::now();
+        $last = end($laps)['time'] ?? $start;
+        $duration = $this->formatDuration($last->diff($now), $param['format']);
+
+        $laps[] = [
+            'time' => $now,
+            'duration' => $duration
+        ];
+    }
+
+    /**
+     * @param Carbon $diff
+     * @param string $format
+     * @return string
+     */
+    private function formatDuration($diff, $format)
+    {
         if (!preg_match('/%d/i', $format)) {
             $diff->h = $diff->h + ($diff->d * 24);
         } else if (!$diff->d) {

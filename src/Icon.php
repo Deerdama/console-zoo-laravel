@@ -624,6 +624,7 @@ class Icon
     const DROPLET = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xA7"];
     const DASH_SYMBOL = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xA8"];
     const PILE_OF_POO = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xA9"];
+    const SHIT = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xA9"];
     const FLEXED_BICEPS = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xAA"];
     const DIZZY_SYMBOL = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xAB"];
     const SPEECH_BALLOON = ['type' => 'icon', 'category' => 'others', 'utf8' => "\xF0\x9F\x92\xAC"];

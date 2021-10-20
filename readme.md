@@ -3,7 +3,7 @@ Console Zoo For Laravel
 
 The purpose of this laravel package is to easily make console outputs less boring, and to be able to quickly style the
 content and add various icons at any time. Plus a couple more helpers like [time and duration](#Timestamps-and-Duration)
-outputs.
+outputs, including laps splitting.
 
 Methods with typical [predefined formats](#Defaults-And-Config) are included: `success`, `info`, `warning`, `error`.
 
@@ -84,7 +84,7 @@ All parameters are optional.
 | background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
 | icons  [**](#Using-Icons) | icon/s to display | string &#124; array &#124; bool |
 | icons_right  [**](#Using-Icons) | icon/s at the end of the message | string &#124; array &#124; bool |
-| timestamp [**](#Timestamps) | adds timestamp in front of the output | bool |
+| timestamp [**](#Timestamps-and-Duration) | adds timestamp in front of the output | bool |
 | bold | increase text intensity |
 | faint | decrease text intensity |
 | italic | apply italic style to text
@@ -95,8 +95,10 @@ All parameters are optional.
 | blink | blink outputted text |
 | swap | swap the text and background colors |
 | category | this is for the random icon only | string |
-| tz | available for the timestamp(); [**](#Timestamps and Duration) | string |
-| format | available for the timestamp() and duration() [**](#Timestamps and Duration) | string |
+| tz | available for the timestamp(); [**](#Timestamps-and-Duration) | string |
+| format | available for the timestamp() and duration() [**](#Timestamps-and-Duration) | string |
+| prepend_text | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string |
+| append_text | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string |
 
 --------------------
 <br>
@@ -160,6 +162,9 @@ class TestZoo extends Command
 
 ## Defaults And Config
 
+* **Config:** All the default styles and formats can be changed in the [configuration](https://github.com/Deerdama/console-zoo-laravel/blob/master/config/zoo.php) file `config\zoo.php`. (The config file needs to be [published](#Installation)!). <br>
+
+
 * There are some **default message types** with pre-defined formats, that can be changed in the config or overwritten by
   passing parameters.
     * `$this->zooInfo($message, $optionalParam);`
@@ -169,13 +174,8 @@ class TestZoo extends Command
 
     <p>
       <img src="https://images2.imgbox.com/29/1c/v2TS3mo7_o.png" alt="examples">
-    </p>       
+    </p>
 
-* **Configuring** the default messages: you can change the above default formats through the config file:
-    * The config file needs to be [published](#Installation)!
-    * Then just change/add the parameters however you want in the `config\zoo.php`
-
-<br>
 
 * **One time** defaults: if you want to setup a default style for the current command, then you can setup the defaults
   through `$this->zooSetDefaults($parameters)` at the beginning of your command without having to pass the same
@@ -249,7 +249,7 @@ class TestZoo extends Command
 </p>
 
 
-or it can be setup as default by changing the `'timestamp' => false` to `true` in the published config `zoo.php`.
+or it can be setup as default behaviour by changing the `'timestamp' => false` to `true` in the published config `zoo.php`.
 
 * In the config's `time` array you can also change the default timezone and the timestamp's format plus its output
   style. Default timezone is the tz set in your config/app.php.
@@ -275,7 +275,7 @@ or it can be setup as default by changing the `'timestamp' => false` to `true` i
 <img src="https://images2.imgbox.com/01/bd/vxyw1FyC_o.png"/>
 </p>
 
-* **Duration**: you can get the current duration with **`$this->duration();`**, but you need to start the timer first!
+* **Duration**: you can get the current/total duration with **`$this->duration();`**, but you need to start the timer first!
   to set the starting time call **`$this->start();`**. The duration has a default format and style that can be changed
   in the config or passed as parameter in `$this->duration($param)`, eg:
 
@@ -299,7 +299,23 @@ or it can be setup as default by changing the `'timestamp' => false` to `true` i
 <img src="https://images2.imgbox.com/9a/2f/tsAKhC2X_o.png"/>
 </p>
 
-* To format the duration use the [DateInterval](https://www.php.net/manual/en/dateinterval.format.php) formatting
+* **Lap**: You can add laps to the timer with **`$this->lap();`**, the format and style of the output have the same options as `duration()`,
+plus two extra options `prepend_text` or `append_text` where you can add the current lap number through `{lap_number}` (brackets included). <br>
+Defaults can be changed in the config `zoo.php` through the `lap_duration` attribute. <br>
+To add a lap without outputting its duration use `$this->lap(false);`. To overwrite the default styling/formatting pass the parameters as second argument.
+
+
+```php
+    $this->lap();
+    
+    $this->lap(true, ['prepend_text' => 'Lap {lap_number} duration: ']);
+```
+
+<p>
+<img src="https://images2.imgbox.com/86/80/FvOoP49m_o.png"/>
+</p>
+
+* To format the durations use the [DateInterval](https://www.php.net/manual/en/dateinterval.format.php) formatting
 
 ------------------
 <br>
