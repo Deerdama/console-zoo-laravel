@@ -70,5 +70,24 @@ return [
         'bold' => false,
         'italic' => false,
         'swap' => false
+    ],
+
+    /**
+     * default format and style of the $this->>lap(); output
+     *
+     * 'prepend_text/append_text' = will prepend/append a specific text.
+     * To include the current lap number use {lap_number} (brackets included)
+     * eg: 'prepend_text' => 'Lap {lap_number} duration: '
+     */
+    'lap_duration' => [
+        'format' => '%hh %im %ss',
+        'color' => Color::TEAL_BRIGHT_2,
+        'icons' => Icon::WATCH,
+        'timestamp' => false,
+        'bold' => false,
+        'italic' => false,
+        'swap' => false,
+        'prepend_text' => false,
+        'append_text' => false
     ]
 ];
