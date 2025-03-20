@@ -39,24 +39,19 @@ Methods with typical [predefined formats](#Defaults-And-Config) are included: `s
 
 ## Installation
 
-**`composer require deerdama/console-zoo-laravel`**
+```shell
+  composer require deerdama/console-zoo-laravel
+```
 
 <br>
 
-
-:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (used and tested on a bunch of versions
-from `5.X`, `6.X`, `7.X` and `8.x` and everything worked normally on all of those)
-
-* Just keep in mind that on versions **older than 5.5**: the service providers need to be registered manually, so you'll
-  need to add the `Deerdama\ConsoleZoo\ConsoleZooServiceProvider` into your `config/app.php` providers
-
-* And in case someone wants to try this on **4.2**... the basic output methods `zoo()` and `surprise()` actually work,
-  but forget about registering the service provider, using the preview command or using the default methods
-  like `zooSuccess()`
+:grey_exclamation: **Laravel versions**: There shouldn't be any issues on >= 5.0 (confirmed on all versions from `5.X` up to `12.X`)
 
 :exclamation: If you'll want to change some default parameters then you'll need to publish the config file:
 
-`php artisan vendor:publish --provider=Deerdama\\ConsoleZoo\\ConsoleZooServiceProvider`
+```shell
+  php artisan vendor:publish --provider=Deerdama\\ConsoleZoo\\ConsoleZooServiceProvider
+```
 
 -------------------
 <br>
@@ -64,7 +59,10 @@ from `5.X`, `6.X`, `7.X` and `8.x` and everything worked normally on all of thos
 ## Display All Options
 
 To see all the **available colors and icons** and to check how they'll look in your console you can run the artisan
-command **`php artisan zoo:options`**
+command 
+```shell
+  php artisan zoo:options
+```
 
 :grey_exclamation: Keep in mind that the icons/colors might not look exactly the same as the screenshots, and some might
 not even work for you, this depends on the console used (plus some other circumstances) and can't be controlled by the
@@ -78,27 +76,27 @@ find some info for example [here](https://en.wikipedia.org/wiki/ANSI_escape_code
 
 All parameters are optional.
 
-| Name | Description | Type |
-| --- | --- | --- |
-| color [**](#Changing-Colors) | text color | string &#124; int &#124; array |
-| background [**](#Changing-Colors) | background color | string &#124; int &#124; array |
-| icons  [**](#Using-Icons) | icon/s to display | string &#124; array &#124; bool |
-| icons_right  [**](#Using-Icons) | icon/s at the end of the message | string &#124; array &#124; bool |
-| timestamp [**](#Timestamps-and-Duration) | adds timestamp in front of the output | bool |
-| bold | increase text intensity |
-| faint | decrease text intensity |
-| italic | apply italic style to text
-| underline | underline text |
-| underline_double | double underline text |
-| crossed | cross out the text |
-| overline | add overline to text |
-| blink | blink outputted text |
-| swap | swap the text and background colors |
-| category | this is for the random icon only | string |
-| tz | available for the timestamp(); [**](#Timestamps-and-Duration) | string |
-| format | available for the timestamp() and duration() [**](#Timestamps-and-Duration) | string |
-| prepend_text | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string |
-| append_text | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string |
+| Name                                     | Description                                                                                                       | Type                            |
+|------------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| color [**](#Changing-Colors)             | text color                                                                                                        | string &#124; int &#124; array  |
+| background [**](#Changing-Colors)        | background color                                                                                                  | string &#124; int &#124; array  |
+| icons  [**](#Using-Icons)                | icon/s to display                                                                                                 | string &#124; array &#124; bool |
+| icons_right  [**](#Using-Icons)          | icon/s at the end of the message                                                                                  | string &#124; array &#124; bool |
+| timestamp [**](#Timestamps-and-Duration) | adds timestamp in front of the output                                                                             | bool                            |
+| bold                                     | increase text intensity                                                                                           |
+| faint                                    | decrease text intensity                                                                                           |
+| italic                                   | apply italic style to text                                                                                        
+| underline                                | underline text                                                                                                    |
+| underline_double                         | double underline text                                                                                             |
+| crossed                                  | cross out the text                                                                                                |
+| overline                                 | add overline to text                                                                                              |
+| blink                                    | blink outputted text                                                                                              |
+| swap                                     | swap the text and background colors                                                                               |
+| category                                 | this is for the random icon only                                                                                  | string                          |
+| tz                                       | available for the timestamp(); [**](#Timestamps-and-Duration)                                                     | string                          |
+| format                                   | available for the timestamp() and duration() [**](#Timestamps-and-Duration)                                       | string                          |
+| prepend_text                             | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string                          |
+| append_text                              | available for the lap()[**](#Timestamps-and-Duration). Can output the current lap number by adding `{lap_number}` | string                          |
 
 --------------------
 <br>
@@ -162,19 +160,24 @@ class TestZoo extends Command
 
 ## Defaults And Config
 
-* **Config:** All the default styles and formats can be changed in the [configuration](https://github.com/Deerdama/console-zoo-laravel/blob/master/config/zoo.php) file `config\zoo.php`. (The config file needs to be [published](#Installation)!). <br>
+* **Config:** All the default styles and formats can be changed in
+  the [configuration](https://github.com/Deerdama/console-zoo-laravel/blob/master/config/zoo.php) file
+  `config\zoo.php`. (The config file needs to be [published](#Installation)!). <br>
 
 
 * There are some **default message types** with pre-defined formats, that can be changed in the config or overwritten by
   passing parameters.
-    * `$this->zooInfo($message, $optionalParam);`
-    * `$this->zooSuccess($message, $optionalParam);`
-    * `$this->zooWarning($message);`
-    * `$this->zooError($message);`
 
-    <p>
-      <img src="https://images2.imgbox.com/29/1c/v2TS3mo7_o.png" alt="examples">
-    </p>
+```php
+  $this->zooInfo($message, $optionalParam);
+  $this->zooSuccess($message, $optionalParam);
+  $this->zooWarning($message);
+  $this->zooError($message);
+```
+
+  <p>
+    <img src="https://images2.imgbox.com/29/1c/v2TS3mo7_o.png" alt="examples">
+  </p>
 
 
 * **One time** defaults: if you want to setup a default style for the current command, then you can setup the defaults
@@ -194,7 +197,6 @@ class TestZoo extends Command
 
     // And then..
     $this->zoo("Meh, I'm just default..");
-
 ```
 
 <p>
@@ -249,7 +251,8 @@ class TestZoo extends Command
 </p>
 
 
-or it can be setup as default behaviour by changing the `'timestamp' => false` to `true` in the published config `zoo.php`.
+or it can be setup as default behaviour by changing the `'timestamp' => false` to `true` in the published config
+`zoo.php`.
 
 * In the config's `time` array you can also change the default timezone and the timestamp's format plus its output
   style. Default timezone is the tz set in your config/app.php.
@@ -275,7 +278,8 @@ or it can be setup as default behaviour by changing the `'timestamp' => false` t
 <img src="https://images2.imgbox.com/01/bd/vxyw1FyC_o.png"/>
 </p>
 
-* **Duration**: you can get the current/total duration with **`$this->duration();`**, but you need to start the timer first!
+* **Duration**: you can get the current/total duration with **`$this->duration();`**, but you need to start the timer
+  first!
   to set the starting time call **`$this->start();`**. The duration has a default format and style that can be changed
   in the config or passed as parameter in `$this->duration($param)`, eg:
 
@@ -299,11 +303,13 @@ or it can be setup as default behaviour by changing the `'timestamp' => false` t
 <img src="https://images2.imgbox.com/9a/2f/tsAKhC2X_o.png"/>
 </p>
 
-* **Lap**: You can add laps to the timer with **`$this->lap();`**, the format and style of the output have the same options as `duration()`,
-plus two extra options `prepend_text` or `append_text` where you can add the current lap number through `{lap_number}` (brackets included). <br>
-Defaults can be changed in the config `zoo.php` through the `lap_duration` attribute. <br>
-To add a lap without outputting its duration use `$this->lap(false);`. To overwrite the default styling/formatting pass the parameters as second argument.
-
+* **Lap**: You can add laps to the timer with **`$this->lap();`**, the format and style of the output have the same
+  options as `duration()`,
+  plus two extra options `prepend_text` or `append_text` where you can add the current lap number through
+  `{lap_number}` (brackets included). <br>
+  Defaults can be changed in the config `zoo.php` through the `lap_duration` attribute. <br>
+  To add a lap without outputting its duration use `$this->lap(false);`. To overwrite the default styling/formatting
+  pass the parameters as second argument.
 
 ```php
     $this->lap();
